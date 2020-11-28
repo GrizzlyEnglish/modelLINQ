@@ -1,6 +1,6 @@
 # modelLINQ
 ------------
-A library to help your write LINQ expressions trees faster and cleaner.
+A library to help you write LINQ expressions trees DTO modeling faster, cleaner, and in plain english.
 
 ------------
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace modeLINQ
+namespace modelLINQ
 {
     public static class ModelExtension
     {

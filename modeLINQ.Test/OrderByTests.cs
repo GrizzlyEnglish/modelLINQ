@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static modeLINQ.Test.TestClasses;
+using static modelLINQ.Test.TestClasses;
 
-namespace modeLINQ.Test
+namespace modelLINQ.Test
 {
     /// <summary>
     /// Tests the validity of the order by

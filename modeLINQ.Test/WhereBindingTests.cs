@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static modeLINQ.Test.TestClasses;
+using static modelLINQ.Test.TestClasses;
 
-namespace modeLINQ.Test
+namespace modelLINQ.Test
 {
     /// <summary>
     /// Tests the validity of the where binding
@@ -136,7 +136,7 @@ namespace modeLINQ.Test
 
             MemberAssignment[] assignments = new MemberAssignment[]
             {
-                sourceParam.BindFilteredItem<ObjectE, ObjectA, ObjectB>("ObjectB", "ListOfB", predicateGenerator, ObjectB.FromObjectA)
+                sourceParam.BindFilteredItem<ObjectE, ObjectA, ObjectB>("ObjectB", "ListOfA", predicateGenerator, ObjectB.FromObjectA)
             };
 
             ObjectE obj = listOfObjectD.Select(Expression.Lambda<Func<ObjectD, ObjectE>>(

@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <PackageId>modelLINQ</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Ryan English</Authors>
     <Company>GrizzlyEnglish</Company>
     <TargetFramework>netstandard2.0</TargetFramework>

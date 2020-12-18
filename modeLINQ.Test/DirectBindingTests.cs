@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using modeLINQ;
-using static modeLINQ.Test.TestClasses;
+using modelLINQ;
+using static modelLINQ.Test.TestClasses;
 
-namespace modeLINQ.Test
+namespace modelLINQ.Test
 {
     /// <summary>
     /// Tests the validaty of binding extension methods

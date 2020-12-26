@@ -57,9 +57,9 @@
     <Compile Include="WhereBindingTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\modeLINQExtensions\modeLINQ.csproj">
-      <Project>{2f1ff4e6-76c0-4c5a-874c-52fab1c39c72}</Project>
-      <Name>modeLINQ</Name>
+    <ProjectReference Include="..\modelLINQExtensions\modelLINQ.csproj">
+      <Project>{b8fcc530-30b3-4e98-bdcc-8bf04307c7c2}</Project>
+      <Name>modelLINQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

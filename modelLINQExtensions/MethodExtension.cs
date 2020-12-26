@@ -293,6 +293,43 @@ namespace modelLINQ
         }
 
         /// <summary>
+        /// Selects a property from a lisst
+        /// </summary>
+        /// <typeparam name="TSelectSource">The source type of the select</typeparam>
+        /// <typeparam name="TSelectResult">The result type of the select</typeparam>
+        /// <param name="param">The select parameter</param>
+        /// <param name="propertyName">The property on the TSource we are selecting</param>
+        /// <param name="sourceName">The name of the select source</param>
+        /// <param name="asList">If we need to generate a list or get a single item</param>
+        /// <returns>
+        /// The selects method call expression
+        /// </returns>
+        public static MethodCallExpression SelectProperty<TSelectSource, TSelectResult>(this Expression param, string propertyName, string sourceName = "listSource", bool asList = false)
+        {
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            Expression propertyParam = Expression.Property(sourceParam, propertyName);
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(propertyParam, sourceParam);
+
+            MethodCallExpression selectCall = Expression.Call(
+              null,
+              GetSelect().MakeGenericMethod(new Type[] {
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
+              }),
+              new Expression[] {
+                  param,
+                  selectLambda
+              });
+
+            return Expression.Call(
+                typeof(Enumerable),
+                asList ? "ToList" : "FirstOrDefault",
+                new Type[] { typeof(TSelectResult) },
+                selectCall
+                );
+        }
+
+        /// <summary>
         /// Selects a sub item off the expression and utilizing the member assignments
         /// creates a list of objects
         /// </summary>

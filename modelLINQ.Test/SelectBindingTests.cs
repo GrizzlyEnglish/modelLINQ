@@ -95,5 +95,47 @@ namespace modelLINQ.Test
             Assert.IsNotNull(obj.ListOfB);
             Assert.AreEqual(2, obj.ListOfB.Count());
         }
+
+        /// <summary>
+        /// Verify that selecting a single property from a list to an item
+        /// </summary>
+        [TestMethod]
+        public void SelectPropertyItem()
+        {
+            MemberAssignment[] assignments = new MemberAssignment[]
+            {
+                Expression.Property(sourceParam, "ListOfA").BindSelectedProperty<ObjectE, ObjectA, int>("ObjectB_Id", "Id", false)
+            };
+
+            ObjectE obj = listOfObjectD.Select(Expression.Lambda<Func<ObjectD, ObjectE>>(
+                Expression.MemberInit(Expression.New(typeof(ObjectE)), assignments)
+                , sourceParam).Compile()).FirstOrDefault();
+
+            Assert.AreNotEqual(obj.ObjectB_Id, 0);
+            Assert.AreEqual(obj.ObjectB_Id, listOfObjectD.SelectMany(d => d.ListOfA).Select(a => a.Id).FirstOrDefault());
+        }
+
+        /// <summary>
+        /// Verify that selecting a single property from a list to a list
+        /// </summary>
+        [TestMethod]
+        public void SelectPropertyList()
+        {
+            MemberAssignment[] assignments = new MemberAssignment[]
+            {
+                Expression.Property(sourceParam, "ListOfA").BindSelectedProperty<ObjectE, ObjectA, int>("ObjectB_Ids", "Id", true)
+            };
+
+            ObjectE obj = listOfObjectD.Select(Expression.Lambda<Func<ObjectD, ObjectE>>(
+                Expression.MemberInit(Expression.New(typeof(ObjectE)), assignments)
+                , sourceParam).Compile()).FirstOrDefault();
+
+            Assert.IsTrue(obj.ObjectB_Ids.Count() > 0);
+
+            foreach(int id in listOfObjectD.SelectMany(d => d.ListOfA).Select(a => a.Id))
+            {
+                Assert.IsTrue(obj.ObjectB_Ids.Contains(id));
+            }
+        }
     }
 }

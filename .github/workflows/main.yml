@@ -35,6 +35,9 @@ jobs:
       
       - name: Build project
         run: msbuild ./modelLINQExtensions.sln -p:Configuration=Release
+      
+      - name: Help me my god
+        run:  ls
 
       - name: Run the tests
-        run:  vstest.console.exe modelLINQ.Test/bin/Release/modelLINQ.Test.dll
+        run:  vstest.console.exe ../modelLINQ.Test/bin/Release/modelLINQ.Test.dll

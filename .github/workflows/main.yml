@@ -29,6 +29,9 @@ jobs:
     
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1
+        
+      - name: Restore nuget
+        run: nuget.exe restore
       
       - name: Build project
         run: msbuild ./modelLINQExtensions.sln -p:Configuration=Release

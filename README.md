@@ -4,6 +4,8 @@
 
 modelLINQ is a simple library to help you build and reuse expression tree data transfer object modeling from some source (generally a database) to another source. Removing all the burden of writing all the types of Expressions needed to generate a simple model, allowing you to only worry about the bindings between objects.
 
+[Documentation](https://thegrizzlyenglish.com/files/documentation/modellinq)
+
 ## How to use
 
 dotnet cli

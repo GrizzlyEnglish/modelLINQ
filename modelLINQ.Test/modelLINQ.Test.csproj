@@ -8,8 +8,8 @@
     <ProjectGuid>{C6E229EB-2D04-46A3-ABDE-B2A147F9651D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>modeLINQ.Test</RootNamespace>
-    <AssemblyName>modeLINQ.Test</AssemblyName>
+    <RootNamespace>modelLINQ.Test</RootNamespace>
+    <AssemblyName>modelLINQ.Test</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

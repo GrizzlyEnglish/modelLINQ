@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using modeLINQ;
-using static modeLINQ.Test.TestClasses;
+using modelLINQ;
+using static modelLINQ.Test.TestClasses;
 
-namespace modeLINQ.Test
+namespace modelLINQ.Test
 {
     /// <summary>
     /// Tests the validaty of binding extension methods
@@ -35,7 +35,8 @@ namespace modeLINQ.Test
                     Id = 15,
                     SubLevel = new ObjectA
                     {
-                        Id = 33
+                        Id = 33,
+                        Name = "SubLevel Object"
                     },
                     Name = "Object"
                 }
@@ -52,14 +53,15 @@ namespace modeLINQ.Test
         public void DirectBindingTest()
         {
             // Map ObjectA to ObjectB with a direct bind to Id
-            MemberAssignment[] assignments = new MemberAssignment[]
+            Func<Expression, MemberAssignment[]> assignments = sourceParam =>
             {
-                sourceParam.DirectBind<ObjectB>("Id")
+                return new MemberAssignment[]
+                {
+                    sourceParam.DirectBind<ObjectB>("Id")
+                };
             };
 
-            ObjectB obj = listOfObjectA.Select(Expression.Lambda<Func<ObjectA, ObjectB>>(
-                Expression.MemberInit(Expression.New(typeof(ObjectB)), assignments)
-                , sourceParam).Compile()).FirstOrDefault();
+            ObjectB obj = listOfObjectA.Select(assignments.Model<ObjectA, ObjectB>()).FirstOrDefault();
 
             Assert.AreEqual(15, obj.Id);
         }
@@ -110,9 +112,60 @@ namespace modeLINQ.Test
             // Verify if the parent object lacks the property we get an exception
             Assert.ThrowsException<Exception>(() => 
                 {
-                    sourceParam.ObjectBind<ObjectB, ObjectA, ObjectC>("Name", objectAssigments);
+                    sourceParam.ObjectBind<ObjectB, ObjectA, ObjectC>("Apples", objectAssigments);
                 }
             );
+        }
+
+        [TestMethod]
+        public void DirectObjectBindingSubLevel()
+        {
+            Func<Expression, MemberAssignment[]> objectAssigments = (param) =>
+                new MemberAssignment[]
+                {
+                    param.DirectBind<ObjectC>("Name")
+                };
+
+            MemberAssignment[] assignments = new MemberAssignment[]
+            {
+                sourceParam.ObjectBind<ObjectB, ObjectA, ObjectC>("Object", objectAssigments, "SubLevel")
+            };
+
+            ObjectB obj = listOfObjectA.Select(Expression.Lambda<Func<ObjectA, ObjectB>>(
+                Expression.MemberInit(Expression.New(typeof(ObjectB)), assignments)
+                , sourceParam).Compile()).FirstOrDefault();
+
+            Assert.AreEqual("SubLevel Object", obj.Object.Name);
+
+            // Verify if the parent object lacks the property we get an exception
+            Assert.ThrowsException<Exception>(() => 
+                {
+                    sourceParam.ObjectBind<ObjectB, ObjectA, ObjectC>("Apples", objectAssigments);
+                }
+            );
+        }
+
+        /// <summary>
+        /// Tests the direct mapping of one object to another
+        /// </summary>
+        [TestMethod]
+        public void DirectModelBind()
+        {
+            // Verify the models map
+            ObjectA objA = listOfObjectA.FirstOrDefault();
+            ObjectB objB = listOfObjectA.Select(modelLINQ.ModelExtension.AsModel<ObjectA, ObjectB>()).FirstOrDefault();
+
+            Assert.AreEqual(objA.Id, objB.Id);
+
+            // Verify the member assignments
+            MemberAssignment[] assignments = Expression.Parameter(typeof(ObjectA)).DirectBind<ObjectB>();
+
+            Assert.AreEqual(2, assignments.Count());
+
+            // Verify we can generate objectb from objecta
+            ObjectB generatedModel = objA.GenerateModel<ObjectA, ObjectB>();
+
+            Assert.AreEqual(objA.Id, generatedModel.Id);
         }
     }
 }

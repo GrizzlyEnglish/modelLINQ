@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace modeLINQ.Test
+namespace modelLINQ.Test
 {
     public class TestClasses
     {
@@ -26,6 +26,7 @@ namespace modeLINQ.Test
         {
             public int Id { get; set; }
             public ObjectC Object { get; set; }
+            public string Name { get; set; }
 
             /// <summary>
             /// A mapping assignment for objectB
@@ -63,6 +64,8 @@ namespace modeLINQ.Test
             public int Id { get; set; }
             public List<ObjectB> ListOfB { get; set; }
             public ObjectB ObjectB { get; set; }
+            public int ObjectB_Id { get; set; }
+            public List<int> ObjectB_Ids { get; set; }
         }
 
     }

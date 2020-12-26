@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace modeLINQ
+namespace modelLINQ
 {
     public static class MethodExtension
     {
@@ -122,8 +122,8 @@ namespace modeLINQ
         /// Selects a list of items into another list of results filtered by
         /// a where predicate
         /// </summary>
-        /// <typeparam name="TSource">The source of the list of items</typeparam>
-        /// <typeparam name="TResult">The result of the list of items</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list of items</typeparam>
+        /// <typeparam name="TSelectResult">The result of the list of items</typeparam>
         /// <param name="bindingParam">The binding param of the predicate</param>
         /// <param name="predicate">The predicate to filter the results on</param>
         /// <param name="assigments">The assignments of the result</param>
@@ -131,12 +131,12 @@ namespace modeLINQ
         /// <param name="selectSourceName">The source name override</param>
         /// <param name="asList">If we want to select as a list</param>
         /// <returns>
-        /// A filitered list of TResult
+        /// A filitered list of TSelectResult
         /// </returns>
-        public static MethodCallExpression Select<TSource, TResult>(this Expression bindingParam, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TSelectResult>(this Expression bindingParam, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool asList = false)
         {
-            return WherePredictate<TSource>(bindingParam, predicate, predicateSourceName)
-                .Select<TSource, TResult>(assigments, selectSourceName, asList);
+            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+                .Select<TSelectSource, TSelectResult>(assigments, selectSourceName, asList);
         }
 
         /// <summary>
@@ -144,9 +144,9 @@ namespace modeLINQ
         /// predicate and ordered by the ordering expression, and finally
         /// selecting the TResults by the bindings
         /// </summary>
-        /// <typeparam name="TSource">The source of the list</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list</typeparam>
         /// <typeparam name="TOrderBy">The type of the ordering</typeparam>
-        /// <typeparam name="TResult">The result to select on</typeparam>
+        /// <typeparam name="TSelectResult">The result to select on</typeparam>
         /// <param name="bindingParam">The parameter to bind on</param>
         /// <param name="orderByProperty">The property that is being ordered on</param>
         /// <param name="predicate">The predicate generator</param>
@@ -158,36 +158,36 @@ namespace modeLINQ
         /// <returns>
         /// A list of filtered and ordered TResults
         /// </returns>
-        public static MethodCallExpression Select<TSource, TOrderBy, TResult>(this Expression bindingParam, string orderByProperty, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool desc = false, bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TOrderBy, TSelectResult>(this Expression bindingParam, string orderByProperty, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool desc = false, bool asList = false)
         {
-            return WherePredictate<TSource>(bindingParam, predicate, predicateSourceName)
-                .Select<TSource, TOrderBy, TResult>(orderByProperty, assigments, desc, selectSourceName, asList);
+            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+                .Select<TSelectSource, TOrderBy, TSelectResult>(orderByProperty, assigments, desc, selectSourceName, asList);
         }
 
         /// <summary>
         /// Selects a list of items into another list of results filtered by
         /// a where predicate
         /// </summary>
-        /// <typeparam name="TSource">The source of the list of items</typeparam>
-        /// <typeparam name="TResult">The result of the list of items</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list of items</typeparam>
+        /// <typeparam name="TSelectResult">The result of the list of items</typeparam>
         /// <param name="predicate">The predicate to filter the results on</param>
         /// <param name="assigments">The assignments of the result</param>
         /// <param name="sourceName">The source name override</param>
         /// <param name="asList">If we want to select a list of items</param>
         /// <returns>
-        /// A filitered list/item of TResult
+        /// A filitered list/item of TSelectResult
         /// </returns>
-        public static MethodCallExpression Select<TSource, TResult>(this MethodCallExpression predicate, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TSelectResult>(this MethodCallExpression predicate, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool asList = false)
         {
-            ParameterExpression sourceParam = Expression.Parameter(typeof(TSource), sourceName);
-            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TResult)), assigments(sourceParam));
-            LambdaExpression selectLambda = Expression.Lambda<Func<TSource, TResult>>(initMethod, sourceParam);
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TSelectResult)), assigments(sourceParam));
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(initMethod, sourceParam);
 
             MethodCallExpression selectCall = Expression.Call(
               null,
               GetSelect().MakeGenericMethod(new Type[] {
-                  typeof(TSource),
-                  typeof(TResult)
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
               }),
                   predicate,
                   selectLambda
@@ -196,7 +196,7 @@ namespace modeLINQ
             return Expression.Call(
                 typeof(Enumerable),
                 asList ? "ToList" : "FirstOrDefault",
-                new Type[] { typeof(TResult) },
+                new Type[] { typeof(TSelectResult) },
                 selectCall
                 );
         }
@@ -205,9 +205,9 @@ namespace modeLINQ
         /// Selects a sub item off the expression and utilizing the member assignments
         /// creates a list of objects
         /// </summary>
-        /// <typeparam name="TSource">The source of the list of items to select on</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
         /// <typeparam name="TOrderBy">The ordering by type</typeparam>
-        /// <typeparam name="TResult">The result model the list will contain</typeparam>
+        /// <typeparam name="TSelectResult">The result model the list will contain</typeparam>
         /// <param name="predicate">The where predicate of the items</param>
         /// <param name="orderByProperty">The order by property</param>
         /// <param name="assigments">The member assignments to generate the model from the parm</param>
@@ -217,20 +217,20 @@ namespace modeLINQ
         /// <returns>
         /// A filtered orderd list/item of TResults MethodCallExpression
         /// </returns>
-        public static MethodCallExpression Select<TSource, TOrderBy, TResult>(this MethodCallExpression predicate, string orderByProperty, Func<Expression, MemberAssignment[]> assigments, bool desc = false, string sourceName = "listSource", bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TOrderBy, TSelectResult>(this MethodCallExpression predicate, string orderByProperty, Func<Expression, MemberAssignment[]> assigments, bool desc = false, string sourceName = "listSource", bool asList = false)
         {
-            ParameterExpression sourceParam = Expression.Parameter(typeof(TSource), sourceName);
-            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TResult)), assigments(sourceParam));
-            LambdaExpression selectLambda = Expression.Lambda<Func<TSource, TResult>>(initMethod, sourceParam);
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TSelectResult)), assigments(sourceParam));
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(initMethod, sourceParam);
 
             MethodCallExpression orderByCall = Expression.Call(
               null,
               GetOrderBy(desc).MakeGenericMethod(new Type[] { 
-                  typeof(TSource), 
+                  typeof(TSelectSource), 
                   typeof(TOrderBy), 
               }),
               predicate,
-              Expression.Lambda<Func<TSource, TOrderBy>>(
+              Expression.Lambda<Func<TSelectSource, TOrderBy>>(
                   Expression.Property(sourceParam, orderByProperty),
                   sourceParam
               )
@@ -239,8 +239,8 @@ namespace modeLINQ
             MethodCallExpression selectCall = Expression.Call(
               null,
               GetSelect().MakeGenericMethod(new Type[] {
-                  typeof(TSource),
-                  typeof(TResult)
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
               }),
                   orderByCall,
                   selectLambda
@@ -249,7 +249,7 @@ namespace modeLINQ
             return Expression.Call(
                 typeof(Enumerable),
                 asList ? "ToList" : "FirstOrDefault",
-                new Type[] { typeof(TResult) },
+                new Type[] { typeof(TSelectResult) },
                 selectCall
                 );
         }
@@ -258,8 +258,8 @@ namespace modeLINQ
         /// Selects a sub item off the expression and utilizing the member assignments
         /// creates a list of objects
         /// </summary>
-        /// <typeparam name="TSource">The source of the list of items to select on</typeparam>
-        /// <typeparam name="TResult">The result model the list will contain</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
+        /// <typeparam name="TSelectResult">The result model the list will contain</typeparam>
         /// <param name="param">The expression param that contains the property to sellect off</param>
         /// <param name="assigments">The member assignments to generate the model from the parm</param>
         /// <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
@@ -267,17 +267,17 @@ namespace modeLINQ
         /// <returns>
         /// A list of TResults MethodCallExpression
         /// </returns>
-        public static MethodCallExpression Select<TSource, TResult>(this Expression param, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TSelectResult>(this Expression param, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool asList = false)
         {
-            ParameterExpression sourceParam = Expression.Parameter(typeof(TSource), sourceName);
-            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TResult)), assigments(sourceParam));
-            LambdaExpression selectLambda = Expression.Lambda<Func<TSource, TResult>>(initMethod, sourceParam);
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TSelectResult)), assigments(sourceParam));
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(initMethod, sourceParam);
 
             MethodCallExpression selectCall = Expression.Call(
               null,
               GetSelect().MakeGenericMethod(new Type[] {
-                  typeof(TSource),
-                  typeof(TResult)
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
               }),
               new Expression[] {
                   param,
@@ -287,7 +287,44 @@ namespace modeLINQ
             return Expression.Call(
                 typeof(Enumerable),
                 asList ? "ToList" : "FirstOrDefault",
-                new Type[] { typeof(TResult) },
+                new Type[] { typeof(TSelectResult) },
+                selectCall
+                );
+        }
+
+        /// <summary>
+        /// Selects a property from a lisst
+        /// </summary>
+        /// <typeparam name="TSelectSource">The source type of the select</typeparam>
+        /// <typeparam name="TSelectResult">The result type of the select</typeparam>
+        /// <param name="param">The select parameter</param>
+        /// <param name="propertyName">The property on the TSource we are selecting</param>
+        /// <param name="sourceName">The name of the select source</param>
+        /// <param name="asList">If we need to generate a list or get a single item</param>
+        /// <returns>
+        /// The selects method call expression
+        /// </returns>
+        public static MethodCallExpression SelectProperty<TSelectSource, TSelectResult>(this Expression param, string propertyName, string sourceName = "listSource", bool asList = false)
+        {
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            Expression propertyParam = Expression.Property(sourceParam, propertyName);
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(propertyParam, sourceParam);
+
+            MethodCallExpression selectCall = Expression.Call(
+              null,
+              GetSelect().MakeGenericMethod(new Type[] {
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
+              }),
+              new Expression[] {
+                  param,
+                  selectLambda
+              });
+
+            return Expression.Call(
+                typeof(Enumerable),
+                asList ? "ToList" : "FirstOrDefault",
+                new Type[] { typeof(TSelectResult) },
                 selectCall
                 );
         }
@@ -296,9 +333,9 @@ namespace modeLINQ
         /// Selects a sub item off the expression and utilizing the member assignments
         /// creates a list of objects
         /// </summary>
-        /// <typeparam name="TSource">The source of the list of items to select on</typeparam>
+        /// <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
         /// <typeparam name="TOrderBy">The ordering by type</typeparam>
-        /// <typeparam name="TResult">The result model the list will contain</typeparam>
+        /// <typeparam name="TSelectResult">The result model the list will contain</typeparam>
         /// <param name="param">The expression param that contains the property to sellect off</param>
         /// <param name="orderBy">The order by expression</param>
         /// <param name="assigments">The member assignments to generate the model from the parm</param>
@@ -308,22 +345,22 @@ namespace modeLINQ
         /// <returns>
         /// A orderd list of TResults MethodCallExpression
         /// </returns>
-        public static MethodCallExpression Select<TSource, TOrderBy, TResult>(this Expression param, string orderByProperty, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool desc = false, bool asList = false)
+        public static MethodCallExpression Select<TSelectSource, TOrderBy, TSelectResult>(this Expression param, string orderByProperty, Func<Expression, MemberAssignment[]> assigments, string sourceName = "listSource", bool desc = false, bool asList = false)
         {
-            ParameterExpression sourceParam = Expression.Parameter(typeof(TSource), sourceName);
-            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TResult)), assigments(sourceParam));
-            LambdaExpression selectLambda = Expression.Lambda<Func<TSource, TResult>>(initMethod, sourceParam);
+            ParameterExpression sourceParam = Expression.Parameter(typeof(TSelectSource), sourceName);
+            MemberInitExpression initMethod = Expression.MemberInit(Expression.New(typeof(TSelectResult)), assigments(sourceParam));
+            LambdaExpression selectLambda = Expression.Lambda<Func<TSelectSource, TSelectResult>>(initMethod, sourceParam);
 
             MethodCallExpression orderByCall = Expression.Call(
               null,
               GetOrderBy(desc).MakeGenericMethod(new Type[] { 
-                  typeof(TSource), 
+                  typeof(TSelectSource), 
                   typeof(TOrderBy), 
               }),
               new Expression[]
               {
                   param,
-                  Expression.Lambda<Func<TSource, TOrderBy>>(
+                  Expression.Lambda<Func<TSelectSource, TOrderBy>>(
                       Expression.Property(sourceParam, orderByProperty),
                       sourceParam
                   )
@@ -333,8 +370,8 @@ namespace modeLINQ
             MethodCallExpression selectCall = Expression.Call(
               null,
               GetSelect().MakeGenericMethod(new Type[] {
-                  typeof(TSource),
-                  typeof(TResult)
+                  typeof(TSelectSource),
+                  typeof(TSelectResult)
               }),
               orderByCall,
               selectLambda
@@ -343,7 +380,7 @@ namespace modeLINQ
             return Expression.Call(
                 typeof(Enumerable),
                 asList ? "ToList" : "FirstOrDefault",
-                new Type[] { typeof(TResult) },
+                new Type[] { typeof(TSelectResult) },
                 selectCall
                 );
         }

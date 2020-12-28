@@ -9,22 +9,6 @@ namespace modelLINQ
 {
     public static class ModelExtension
     {
-
-        /// <summary>
-        /// Proxy method for generating a new member expression, just for saving on 
-        /// typing each time a new model is needing to be generated
-        /// </summary>
-        /// <typeparam name="TSource">The source of the model whom gets passed down to the bindings</typeparam>
-        /// <typeparam name="TResult">The result of the new expression init</typeparam>
-        /// <param name="bindingGenerator">A function that generates the necessary bindings of the model from the source</param>
-        /// <returns>
-        /// A func of the model being generated
-        /// </returns>
-        public static Func<TSource, TResult> Model<TSource, TResult>(this Func<Expression, MemberBinding[]> bindingGenerator)
-        {
-            return Model<TSource, TResult>(bindingGenerator, "source").Compile();
-        }
-
         /// <summary>
         /// Proxy method for generating a new member expression, just for saving on 
         /// typing each time a new model is needing to be generated
@@ -60,7 +44,7 @@ namespace modelLINQ
                 return sourceParam.DirectBind<TResult>();
             };
 
-            return generatorFunc.Model<TSource, TResult>();
+            return generatorFunc.Model<TSource, TResult>().Compile();
         }
 
         /// <summary>
@@ -84,7 +68,7 @@ namespace modelLINQ
             };
 
             return soureList
-                .Select(generatorFunc.Model<TSource, TResult>())
+                .Select(generatorFunc.Model<TSource, TResult>().Compile())
                 .FirstOrDefault();
         }
 

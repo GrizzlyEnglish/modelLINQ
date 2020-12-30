@@ -61,7 +61,7 @@ namespace modelLINQ.Test
                 };
             };
 
-            ObjectB obj = listOfObjectA.Select(assignments.Model<ObjectA, ObjectB>()).FirstOrDefault();
+            ObjectB obj = listOfObjectA.Select(assignments.Model<ObjectA, ObjectB>().Compile()).FirstOrDefault();
 
             Assert.AreEqual(15, obj.Id);
         }

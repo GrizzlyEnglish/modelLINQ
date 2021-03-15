@@ -50,6 +50,24 @@ namespace modelLINQ
         }
 
         /// <summary>
+        /// Gets any method information
+        /// </summary>
+        /// <returns>
+        /// Anys IEnumerable method information
+        /// </returns>
+        public static MethodInfo GetAny()
+        {
+            foreach (MethodInfo m in typeof(Enumerable).GetMethods().Where(m => m.Name == "Any"))
+            {
+                if (m.GetParameters().Count() == 2)
+                {
+                    return m;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Gets the order by method info off enumerable
         /// </summary>
         /// <param name="desc">If we want to descend</param>
@@ -383,6 +401,34 @@ namespace modelLINQ
                 new Type[] { typeof(TSelectResult) },
                 selectCall
                 );
+        }
+
+        /// <summary>
+        /// Any method call expression generator
+        /// </summary>
+        /// <typeparam name="TAnySource">The any param source</typeparam>
+        /// <param name="param">The parameter generating the any</param>
+        /// <param name="anyPredicateExpression">The lambda function body</param>
+        /// <returns>
+        /// A any method call expression
+        /// </returns>
+        public static MethodCallExpression Any<TAnySource>(this Expression param, Func<Expression, Expression> anyPredicateExpression)
+        {
+            ParameterExpression anyParam = Expression.Parameter(typeof(TAnySource), "anyParam");
+
+            return Expression.Call(
+                null,
+                GetAny().MakeGenericMethod(new Type[]{
+                    typeof(TAnySource),
+                }),
+                new Expression[]
+                {
+                    param,
+                    Expression.Lambda<Func<TAnySource, bool>>(
+                        anyPredicateExpression(anyParam),
+                        anyParam
+                    )
+                });
         }
 
     }

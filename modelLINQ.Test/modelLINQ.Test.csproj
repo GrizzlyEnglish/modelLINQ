@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnyTests.cs" />
     <Compile Include="DirectBindingTests.cs" />
     <Compile Include="OrderByTests.cs" />
     <Compile Include="SelectBindingTests.cs" />

@@ -99,5 +99,37 @@ namespace modelLINQ
 
             return Expression.Bind(typeof(TSelectResult).GetProperty(bindPropname), prop);
         }
+
+            
+        /// <summary>
+        /// Bind a has any function on a parameter
+        /// </summary>
+        /// <typeparam name="TSelectResult">The selected result type</typeparam>
+        /// <typeparam name="TAnySource">The any type check</typeparam>
+        /// <param name="param">The source parameter</param>
+        /// <param name="bindPropname">The selected results type property</param>
+        /// <param name="anyPredicate">The predicate function of the any clause</param>
+        /// <param name="propNames">The prop names param to drill down to correct property</param>
+        /// <exception cref="Exception">Binding type is not boolean</exception>
+        /// <returns>
+        /// A has any memberassignment
+        /// </returns>
+        public static MemberAssignment BindHasAny<TSelectResult, TAnySource>(this Expression param, string bindPropname, Func<Expression,Expression> anyPredicate, params string[] propNames)
+        {
+            Expression prop = param;
+            foreach (string name in propNames)
+            {
+                prop = Expression.Property(prop, name);
+            }
+
+            PropertyInfo bindingProperty = typeof(TSelectResult).GetProperty(bindPropname);
+
+            if (bindingProperty.PropertyType != typeof(bool))
+            {
+                throw new Exception("Binding on has any must be a boolean");
+            }
+
+            return Expression.Bind(bindingProperty, prop.Any<TAnySource>(anyPredicate));
+        }
     }
 }

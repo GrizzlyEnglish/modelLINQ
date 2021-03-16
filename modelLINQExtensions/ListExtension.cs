@@ -29,6 +29,30 @@ namespace modelLINQ
         }
 
         /// <summary>
+        /// Binds a property to a filtered list of items or item
+        /// </summary>
+        /// <typeparam name="TBindingTo">The type of the binding</typeparam>
+        /// <typeparam name="TSelectSource">The type of the select for getting the property</typeparam>
+        /// <typeparam name="TSelectResult">The result of the select</typeparam>
+        /// <param name="param">The param of the binding</param>
+        /// <param name="bindingPropertyName">The name of the property to bind to</param>
+        /// <param name="predicateGenerator">The filter predicate generation</param>
+        /// <param name="propertyToBind">The property name for getting the binding</param>
+        /// <param name="asList">If binding a list or a single item</param>
+        /// <returns>
+        /// The memberassignment of the filtered property
+        /// </returns>
+        public static MemberAssignment BindFilteredPropertyItem<TBindingTo, TSelectSource, TSelectResult>(this Expression param, string bindingPropertyName, Func<Expression, Expression> predicateGenerator, string propertyToBind, bool asList = false)
+        {
+            return Expression.Bind(
+                    typeof(TBindingTo).GetProperty(bindingPropertyName),
+                    param
+                        .WherePredictate<TSelectSource>(predicateGenerator)
+                        .SelectProperty<TSelectSource, TSelectResult>(propertyToBind, asList: asList)
+                    );
+        }
+
+        /// <summary>
         /// Bind on selected property of a given list item as a single item
         /// </summary>
         /// <typeparam name="TBindingTo">The type we are binding to</typeparam>

@@ -82,6 +82,22 @@
             A memeber assigment of selecting a list of tresult
             </returns>
         </member>
+        <member name="M:modelLINQ.ListExtension.BindFilteredPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String,System.Boolean)">
+            <summary>
+            Binds a property to a filtered list of items or item
+            </summary>
+            <typeparam name="TBindingTo">The type of the binding</typeparam>
+            <typeparam name="TSelectSource">The type of the select for getting the property</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The param of the binding</param>
+            <param name="bindingPropertyName">The name of the property to bind to</param>
+            <param name="predicateGenerator">The filter predicate generation</param>
+            <param name="propertyToBind">The property name for getting the binding</param>
+            <param name="asList">If binding a list or a single item</param>
+            <returns>
+            The memberassignment of the filtered property
+            </returns>
+        </member>
         <member name="M:modelLINQ.ListExtension.BindSelectedPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.String)">
             <summary>
             Bind on selected property of a given list item as a single item

@@ -43,8 +43,10 @@ namespace modelLINQ.Test
         [TestMethod]
         public void TestAny()
         {
+            // Setup the source param
             ParameterExpression sourceParam = Expression.Parameter(typeof(ObjectD), "source");
 
+            // Setup the model bindings
             MemberAssignment[] assignments = new MemberAssignment[]
             {
                 sourceParam.DirectBind<ObjectF>(nameof(ObjectF.Id)),
@@ -56,11 +58,13 @@ namespace modelLINQ.Test
                 }, nameof(ObjectD.ListOfA))
             };
 
+            // Select the objectF from the objectD list
             ObjectF obj = Objects
                 .Select(Expression.Lambda<Func<ObjectD, ObjectF>>(
                     Expression.MemberInit(Expression.New(typeof(ObjectF)), assignments)
                 , sourceParam).Compile()).FirstOrDefault();
 
+            // Verify data
             Assert.IsNotNull(obj);
             Assert.IsTrue(obj.HasChildren);
             Assert.AreEqual(1, obj.Id);

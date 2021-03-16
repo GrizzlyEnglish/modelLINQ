@@ -57,6 +57,33 @@ namespace modelLINQ.Test
         } 
 
         /// <summary>
+        /// Selects the id of out of the list of objects with the matching
+        /// name of the object
+        /// </summary>
+        [TestMethod]
+        public void SelectFilteredProperty()
+        {
+            // Setup the bindings
+            MemberAssignment[] assignments = new MemberAssignment[]
+            {
+                Expression.Property(sourceParam, nameof(ObjectD.ListOfA)).BindFilteredPropertyItem<ObjectE, ObjectA, int>(nameof(ObjectE.ObjectB_Id), (param) => {
+                    return Expression.Equal(
+                        Expression.Property(param, nameof(ObjectA.Name)),
+                        // Get the object with the matching name
+                        Expression.Constant("Object A 1")
+                        );
+                }, nameof(ObjectB.Id), false)    
+            };
+
+            ObjectE obj = listOfObjectD.Select(Expression.Lambda<Func<ObjectD, ObjectE>>(
+                Expression.MemberInit(Expression.New(typeof(ObjectE)), assignments)
+                , sourceParam).Compile()).FirstOrDefault();
+
+            Assert.IsNotNull(obj);
+            Assert.AreEqual(1, obj.ObjectB_Id);
+        }
+
+        /// <summary>
         /// Select from the property expression and verify
         /// the sub list of objects was converted over
         /// </summary>

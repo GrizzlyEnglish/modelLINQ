@@ -68,5 +68,14 @@ namespace modelLINQ.Test
             public List<int> ObjectB_Ids { get; set; }
         }
 
+        /// <summary>
+        /// Object F is a mapping of Object D with any ObjectB
+        /// </summary>
+        public class ObjectF
+        {
+            public int Id { get; set; }
+            public bool HasChildren { get; set; }
+        }
+
     }
 }

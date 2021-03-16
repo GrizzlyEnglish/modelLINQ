@@ -1,0 +1,655 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>modelLINQ</name>
+    </assembly>
+    <members>
+        <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Gets the direct mapping assignments from one source param
+            to a TResult, ignoring properties that don't exist on both
+            </summary>
+            <typeparam name="TResult">The result of the mapping</typeparam>
+            <param name="param">The source param of the mapping</param>
+            <returns>
+            An assignment array of all the properties
+            </returns>
+        </member>
+        <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)">
+            <summary>
+            Directly bind the same property from the source to the result
+            </summary>
+            <typeparam name="TResult">The object we are binding the property to</typeparam>
+            <param name="param">The source parameter expression</param>
+            <param name="propName">The name of the property we are binding</param>
+            <returns>
+            A member assignment of the direct binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.BindingExtension.PropertyHasValue``2(System.Linq.Expressions.Expression,System.String,System.String)">
+            <summary>
+            Binds to the property as a terinary statement with null
+            backing if it is null
+            </summary>
+            <typeparam name="TBindTo">The type we are binding the statement to</typeparam>
+            <typeparam name="TProperty">The type of the property we are checking</typeparam>
+            <param name="param">The param of the property we are creating terinary for</param>
+            <param name="propName">The property name of the type to do the check against</param>
+            <param name="bindToPropertyName">The property name we are binding to</param>
+            <returns>
+            The ternirary binding with the item or null
+            </returns>
+        </member>
+        <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String,System.String[])">
+            <summary>
+            Direct bind on sublevel properties as many names that are passed through
+            </summary>
+            <typeparam name="TSelectResult">The result we are binding to</typeparam>
+            <param name="param">The top level param we will get the sub property from</param>
+            <param name="bindPropname">The name of the property to bind the param on</param>
+            <param name="propNames">The property names we will expand</param>
+            <returns>
+            A binding of the sub param on the bind prop name
+            </returns>
+        </member>
+        <member name="M:modelLINQ.BindingExtension.BindHasAny``2(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String[])">
+            <summary>
+            Bind a has any function on a parameter
+            </summary>
+            <typeparam name="TSelectResult">The selected result type</typeparam>
+            <typeparam name="TAnySource">The any type check</typeparam>
+            <param name="param">The source parameter</param>
+            <param name="bindPropname">The selected results type property</param>
+            <param name="anyPredicate">The predicate function of the any clause</param>
+            <param name="propNames">The prop names param to drill down to correct property</param>
+            <exception cref="T:System.Exception">Binding type is not boolean</exception>
+            <returns>
+            A has any memberassignment
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Binds a selected list to the binding property name on the TBindingTo from
+            the TSelectSource as a TSelectResult
+            </summary>
+            <typeparam name="TBindingTo">The parent object we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the binding result</typeparam>
+            <typeparam name="TSelectResult">The result object of the selected</typeparam>
+            <param name="param">The param of the tparent to get the property of</param>
+            <param name="bindingPropertyName">The name of the binding property</param>
+            <param name="bindingGenerator">The assigment bindings</param>
+            <returns>
+            A memeber assigment of selecting a list of tresult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.String)">
+            <summary>
+            Bind on selected property of a given list item as a single item
+            </summary>
+            <typeparam name="TBindingTo">The type we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source we are binding to</typeparam>
+            <typeparam name="TSelectResult">The result of select type</typeparam>
+            <param name="param">The parameter to generate the binding on</param>
+            <param name="bindingPropertyName">The property name on the binding model</param>
+            <param name="propertyToBind">The name of the property to selet</param>
+            <returns>
+            An expression tree of the select binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.String,System.String)">
+            <summary>
+            Bind on selected property of a given list item as a single item
+            </summary>
+            <typeparam name="TBindingTo">The type we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source we are binding to</typeparam>
+            <typeparam name="TSelectResult">The result of select type</typeparam>
+            <param name="param">The parameter to generate the binding on</param>
+            <param name="bindingPropertyName">The property name on the binding model</param>
+            <param name="selectOnPropertyName">Selects the property on the param before building</param>
+            <param name="propertyToBind">The name of the property to selet</param>
+            <returns>
+            An expression tree of the select binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedPropertyList``3(System.Linq.Expressions.Expression,System.String,System.String)">
+            <summary>
+            Bind on selected property of a given list item as a list
+            </summary>
+            <typeparam name="TBindingTo">The type we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source we are binding to</typeparam>
+            <typeparam name="TSelectResult">The result of select type</typeparam>
+            <param name="param">The parameter to generate the binding on</param>
+            <param name="bindingPropertyName">The property name on the binding model</param>
+            <param name="propertyToBind">The name of the property to selet</param>
+            <returns>
+            An expression tree of the select binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedPropertyList``3(System.Linq.Expressions.Expression,System.String,System.String,System.String)">
+            <summary>
+            Bind on selected property of a given list item as a list
+            </summary>
+            <typeparam name="TBindingTo">The type we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source we are binding to</typeparam>
+            <typeparam name="TSelectResult">The result of select type</typeparam>
+            <param name="param">The parameter to generate the binding on</param>
+            <param name="bindingPropertyName">The property name on the binding model</param>
+            <param name="selectOnPropertyName">The property name to get on the param before building</param>
+            <param name="propertyToBind">The name of the property to selet</param>
+            <returns>
+            An expression tree of the select binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedProperty``3(System.Linq.Expressions.Expression,System.String,System.String,System.Boolean)">
+            <summary>
+            Bind on selected property of a given list item as a list or a single item
+            </summary>
+            <typeparam name="TBindingTo">The type we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source we are binding to</typeparam>
+            <typeparam name="TSelectResult">The result of select type</typeparam>
+            <param name="param">The parameter to generate the binding on</param>
+            <param name="bindingPropertyName">The property name on the binding model</param>
+            <param name="propertyToBind">The name of the property to selet</param>
+            <returns>
+            An expression tree of the select binding
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Binds a selected list to the binding property name on the TBindingTo from
+            the TSelectSource as a TSelectResult
+            </summary>
+            <typeparam name="TBindingTo">The parent object we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the binding result</typeparam>
+            <typeparam name="TSelectResult">The result object of the selected</typeparam>
+            <param name="param">The param of the tparent to get the property of</param>
+            <param name="bindingPropertyName">The name of the binding property</param>
+            <param name="paramPropertyName">The property of the param to select on</param>
+            <param name="bindingGenerator">The assigment bindings</param>
+            <returns>
+            A memeber assigment of selecting a list of tresult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindFilteredList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Selects a list with a predicate to filter on
+            </summary>
+            <typeparam name="TBindingTo">The parent model we are selecting on</typeparam>
+            <typeparam name="TSelectSource">The soruce of the select</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The param of the source</param>
+            <param name="bindingPropertyName">The property name of the parent to bind on</param>
+            <param name="predicateGenerator">The predicate generator</param>
+            <param name="bindingGenerator">The results binding generator</param>
+            <returns>
+            A filitered list of TResults
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindFilteredList``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Selects a list with a predicate to filter on
+            </summary>
+            <typeparam name="TBindingTo">The parent model we are selecting on</typeparam>
+            <typeparam name="TSelectSource">The soruce of the select</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The param of the source</param>
+            <param name="bindingPropertyName">The property name of the parent to bind on</param>
+            <param name="paramPropertyName">The property name of the param that is being filtered</param>
+            <param name="predicateGenerator">The predicate generator</param>
+            <param name="bindingGenerator">The results binding generator</param>
+            <returns>
+            A filitered list of TResults
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindFilteredItem``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Selects a item from a list with a predicate to filter on
+            </summary>
+            <typeparam name="TBindingTo">The parent model we are selecting on</typeparam>
+            <typeparam name="TSelectSource">The soruce of the select</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The param of the source</param>
+            <param name="bindingPropertyName">The property name of the parent to bind on</param>
+            <param name="predicateGenerator">The predicate generator</param>
+            <param name="bindingGenerator">The results binding generator</param>
+            <returns>
+            A filitered item of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindFilteredItem``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Selects a item from a list with a predicate to filter on
+            </summary>
+            <typeparam name="TBindingTo">The parent model we are selecting on</typeparam>
+            <typeparam name="TSelectSource">The soruce of the select</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The param of the source</param>
+            <param name="bindingPropertyName">The property name of the parent to bind on</param>
+            <param name="paramPropertyName">The property name of the source param to filter on</param>
+            <param name="predicateGenerator">The predicate generator</param>
+            <param name="bindingGenerator">The results binding generator</param>
+            <returns>
+            A filitered item of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedFilteredItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Generates an item from a ordered list grabing the first
+            item in the newly ordered list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The type we are ordering on</typeparam>
+            <typeparam name="TSelectResult"></typeparam>
+            <param name="param">The source param we are filtering the list on</param>
+            <param name="bindingPropertyName">The binding property of the source</param>
+            <param name="orderByProperty">The property on TSelectSource we are ordering on</param>
+            <param name="predicateGenerator">The filtering generator function</param>
+            <param name="bindingGenerator">The assigment generator</param>
+            <param name="desc">If we are descending the ordering</param>
+            <returns>
+            A item of TSelectResult from a list filtered and ordered
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Binds a single item from an ordered list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The order by type</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The source parametere</param>
+            <param name="bindingPropertyName">The binding property name on the source</param>
+            <param name="orderByProperty">The order by property name</param>
+            <param name="bindingGenerator">The select bindings generator</param>
+            <param name="desc">If we want to order by descending</param>
+            <returns>
+            A Binding of a single item to the property from an ordered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Binds a single item from an ordered list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The order by type</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The source parametere</param>
+            <param name="bindingPropertyName">The binding property name on the source</param>
+            <param name="paramPropertyName">The property name of the list on the source</param>
+            <param name="orderByProperty">The order by property name</param>
+            <param name="bindingGenerator">The select bindings generator</param>
+            <param name="desc">If we want to order by descending</param>
+            <returns>
+            A Binding of a single item to the property from an ordered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedFilteredItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Generates an item from a ordered list grabing the first
+            item in the newly ordered list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The type we are ordering on</typeparam>
+            <typeparam name="TSelectResult"></typeparam>
+            <param name="param">The source param we are filtering the list on</param>
+            <param name="bindingPropertyName">The binding property of the source</param>
+            <param name="paramPropertyName">The name of the property on the source</param>
+            <param name="orderByProperty">The property on TSelectSource we are ordering on</param>
+            <param name="predicateGenerator">The filtering generator function</param>
+            <param name="bindingGenerator">The assigment generator</param>
+            <param name="desc">If we are descending the ordering</param>
+            <returns>
+            A item of TSelectResult from a list filtered and ordered
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedFilteredList``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Generates an list from a list by ordering and selecting
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The type we are ordering on</typeparam>
+            <typeparam name="TSelectResult"></typeparam>
+            <param name="param">The source param we are filtering the list on</param>
+            <param name="bindingPropertyName">The binding property of the source</param>
+            <param name="paramPropertyName">The name of the property of the list on the source</param>
+            <param name="orderByProperty">The property we are ordering by on TSelectSource</param>
+            <param name="predicateGenerator">The filtering generator function</param>
+            <param name="bindingGenerator">The assigment generator</param>
+            <param name="desc">If we are descending the ordering</param>
+            <returns>
+            An ordered and filtered list of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedFilteredList``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Generates an list from a list by ordering and selecting
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The type we are ordering on</typeparam>
+            <typeparam name="TSelectResult"></typeparam>
+            <param name="param">The source param we are filtering the list on</param>
+            <param name="bindingPropertyName">The binding property of the source</param>
+            <param name="orderByProperty">The property we are ordering by on TSelectSource</param>
+            <param name="predicateGenerator">The filtering generator function</param>
+            <param name="bindingGenerator">The assigment generator</param>
+            <param name="desc">If we are descending the ordering</param>
+            <returns>
+            An ordered and filtered list of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedList``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Binds an ordered list to from a list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The order by type</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The source param</param>
+            <param name="bindingPropertyName">The name of the property being bound to</param>
+            <param name="orderByProperty">The name of the order by property</param>
+            <param name="bindingGenerator">The bindings generator</param>
+            <param name="desc">If the list is descending</param>
+            <returns>
+            A binding assigment of an ordered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindOrderedList``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)">
+            <summary>
+            Binds an ordered list to from a list
+            </summary>
+            <typeparam name="TBindingTo">The parent we are binding to</typeparam>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The order by type</typeparam>
+            <typeparam name="TSelectResult">The result of the select</typeparam>
+            <param name="param">The source param</param>
+            <param name="bindingPropertyName">The name of the property being bound to</param>
+            <param name="paramPropertyName">The property name of the list on the source</param>
+            <param name="orderByProperty">The name of the order by property</param>
+            <param name="bindingGenerator">The bindings generator</param>
+            <param name="desc">If the list is descending</param>
+            <returns>
+            A binding assigment of an ordered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.GetSelect">
+            <summary>
+            Gets the select method info from Enumerable
+            </summary>
+            <returns>
+            The select method info
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.GetWhere">
+            <summary>
+            Gets IEnumerables where MethodInfo
+            </summary>
+            <returns>
+            The where MethodInfo
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.GetAny">
+            <summary>
+            Gets any method information
+            </summary>
+            <returns>
+            Anys IEnumerable method information
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.GetOrderBy(System.Boolean)">
+            <summary>
+            Gets the order by method info off enumerable
+            </summary>
+            <param name="desc">If we want to descend</param>
+            <returns>
+            Order by Method Info
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)">
+            <summary>
+            Generates a where predicate in order to filter a list
+            down by the function predicate, generally to be selected or
+            to listed
+            </summary>
+            <typeparam name="TSource">The source of the list to filter</typeparam>
+            <param name="bindingParam">The binding param of the list</param>
+            <param name="predicate">The predicate generator function</param>
+            <param name="paramName">The override of the source param name</param>
+            <returns>
+            A filtered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)">
+            <summary>
+            Generates a where predicate in order to filter a list
+            down by the function predicate binding from the param property name
+            generally to be selected or to listed
+            </summary>
+            <typeparam name="TSource">The source of the list</typeparam>
+            <param name="param">The binding parent param</param>
+            <param name="paramPropertyName">The property name to get the binding</param>
+            <param name="predicate">The predicate generator</param>
+            <param name="paramName">The param name</param>
+            <returns>
+            A filtered list
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.String,System.Boolean)">
+            <summary>
+            Selects a list of items into another list of results filtered by
+            a where predicate
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items</typeparam>
+            <typeparam name="TSelectResult">The result of the list of items</typeparam>
+            <param name="bindingParam">The binding param of the predicate</param>
+            <param name="predicate">The predicate to filter the results on</param>
+            <param name="assigments">The assignments of the result</param>
+            <param name="predicateSourceName">The predicate source name override</param>
+            <param name="selectSourceName">The source name override</param>
+            <param name="asList">If we want to select as a list</param>
+            <returns>
+            A filitered list of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Selects a list of items that are filtered by the given
+            predicate and ordered by the ordering expression, and finally
+            selecting the TResults by the bindings
+            </summary>
+            <typeparam name="TSelectSource">The source of the list</typeparam>
+            <typeparam name="TOrderBy">The type of the ordering</typeparam>
+            <typeparam name="TSelectResult">The result to select on</typeparam>
+            <param name="bindingParam">The parameter to bind on</param>
+            <param name="orderByProperty">The property that is being ordered on</param>
+            <param name="predicate">The predicate generator</param>
+            <param name="assigments">The select generator</param>
+            <param name="predicateSourceName">The predicate source name override</param>
+            <param name="selectSourceName">The select source name override</param>
+            <param name="desc">If we are descending the ordering</param>
+            <param name="asList">If we are selecting as a list</param>
+            <returns>
+            A list of filtered and ordered TResults
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.MethodCallExpression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean)">
+            <summary>
+            Selects a list of items into another list of results filtered by
+            a where predicate
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items</typeparam>
+            <typeparam name="TSelectResult">The result of the list of items</typeparam>
+            <param name="predicate">The predicate to filter the results on</param>
+            <param name="assigments">The assignments of the result</param>
+            <param name="sourceName">The source name override</param>
+            <param name="asList">If we want to select a list of items</param>
+            <returns>
+            A filitered list/item of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.MethodCallExpression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Selects a sub item off the expression and utilizing the member assignments
+            creates a list of objects
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
+            <typeparam name="TOrderBy">The ordering by type</typeparam>
+            <typeparam name="TSelectResult">The result model the list will contain</typeparam>
+            <param name="predicate">The where predicate of the items</param>
+            <param name="orderByProperty">The order by property</param>
+            <param name="assigments">The member assignments to generate the model from the parm</param>
+            <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
+            <param name="desc">If we are ordering by descending</param>
+            <param name="asList">If we want to select as a list</param>
+            <returns>
+            A filtered orderd list/item of TResults MethodCallExpression
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean)">
+            <summary>
+            Selects a sub item off the expression and utilizing the member assignments
+            creates a list of objects
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
+            <typeparam name="TSelectResult">The result model the list will contain</typeparam>
+            <param name="param">The expression param that contains the property to sellect off</param>
+            <param name="assigments">The member assignments to generate the model from the parm</param>
+            <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
+            <param name="asList">If we want to select as a list</param>
+            <returns>
+            A list of TResults MethodCallExpression
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.SelectProperty``2(System.Linq.Expressions.Expression,System.String,System.String,System.Boolean)">
+            <summary>
+            Selects a property from a lisst
+            </summary>
+            <typeparam name="TSelectSource">The source type of the select</typeparam>
+            <typeparam name="TSelectResult">The result type of the select</typeparam>
+            <param name="param">The select parameter</param>
+            <param name="propertyName">The property on the TSource we are selecting</param>
+            <param name="sourceName">The name of the select source</param>
+            <param name="asList">If we need to generate a list or get a single item</param>
+            <returns>
+            The selects method call expression
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Selects a sub item off the expression and utilizing the member assignments
+            creates a list of objects
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items to select on</typeparam>
+            <typeparam name="TOrderBy">The ordering by type</typeparam>
+            <typeparam name="TSelectResult">The result model the list will contain</typeparam>
+            <param name="param">The expression param that contains the property to sellect off</param>
+            <param name="orderBy">The order by expression</param>
+            <param name="assigments">The member assignments to generate the model from the parm</param>
+            <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
+            <param name="desc">If we are ordering by descending</param>
+            <param name="asList">If we want to select as a list</param>
+            <returns>
+            A orderd list of TResults MethodCallExpression
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.Any``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression})">
+            <summary>
+            Any method call expression generator
+            </summary>
+            <typeparam name="TAnySource">The any param source</typeparam>
+            <param name="param">The parameter generating the any</param>
+            <param name="anyPredicateExpression">The lambda function body</param>
+            <returns>
+            A any method call expression
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ModelExtension.Model``2(System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberBinding[]},System.String)">
+            <summary>
+            Proxy method for generating a new member expression, just for saving on 
+            typing each time a new model is needing to be generated
+            </summary>
+            <typeparam name="TSource">The source of the model whom gets passed down to the bindings</typeparam>
+            <typeparam name="TResult">The result of the new expression init</typeparam>
+            <param name="bindingGenerator">A function that generates the necessary bindings of the model from the source</param>
+            <param name="paramName">If you want to overide the name of the source, otherwise default to source</param>
+            <returns>
+            A new expression lamaba of the model being generated
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ModelExtension.AsModel``2">
+            <summary>
+            Directly maps one type to another type
+            </summary>
+            <typeparam name="TSource">The source type of the mapping</typeparam>
+            <typeparam name="TResult">The result type of the mapping</typeparam>
+            <returns>
+            A function for direct mapping
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ModelExtension.GenerateModel``2(``0)">
+            <summary>
+            Maps over a TSource to a TResult by creating a list
+            of the individual object and utilizing the member assignments
+            to project the TResult.
+            </summary>
+            <typeparam name="TSource">The source of the generation</typeparam>
+            <typeparam name="TResult">The result of the generation</typeparam>
+            <param name="sourceObject">The source object we are mapping over to the TResult</param>
+            <returns>
+            An instance of TResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ModelExtension.NullModelCondition``2(System.Linq.Expressions.Expression,System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Generates an expression conditional that checks if the source is null before
+            adding the new memeber init expression
+            </summary>
+            <typeparam name="TSource">The source we are checking if null</typeparam>
+            <typeparam name="TResult">The result we will bind as null if the source is null</typeparam>
+            <param name="param">The param we are null checking</param>
+            <param name="memberInit">The member init function to generate if sourece is not null</param>
+            <returns>
+            A conditional expression that is binds null or a memberinit
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ObjectExtension.ObjectBind``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+            <summary>
+            Binds an object decleration to result, checking if the source is null and if it 
+            is putting a null in stead of the member init expression
+            </summary>
+            <typeparam name="TBindingTo">The parent object of the binding where we are binding the result to</typeparam>
+            <typeparam name="TSelectSource">The source of the object bind</typeparam>
+            <typeparam name="TSelectResult">The result of the object bind</typeparam>
+            <param name="param">The source parameter expression</param>
+            <param name="bindingProperty">The name of the property on the parent we are binding to</param>
+            <param name="bindingGenerator">The member generator of the new member init, if null check passes on the source</param>
+            <exception cref="T:System.Exception">If parent lacks binding property</exception>
+            <returns>
+            An object bound memberassignment on either null or the new model
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ObjectExtension.ObjectBind``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String[])">
+            <summary>
+            Binds an object decleration to result, checking if the source is null and if it 
+            is putting a null in stead of the member init expression
+            </summary>
+            <typeparam name="TBindingTo">The parent object of the binding where we are binding the result to</typeparam>
+            <typeparam name="TSelectSource">The source of the object bind</typeparam>
+            <typeparam name="TSelectResult">The result of the object bind</typeparam>
+            <param name="param">The source parameter expression</param>
+            <param name="bindingProperty">The name of the property on the parent we are binding to</param>
+            <param name="bindingGenerator">The member generator of the new member init, if null check passes on the source</param>
+            <param name="propertyNames">The property names to go down from the existing param</param>
+            <exception cref="T:System.Exception">If parent lacks binding property</exception>
+            <returns>
+            An object bound memberassignment on either null or the new model
+            </returns>
+        </member>
+    </members>
+</doc>

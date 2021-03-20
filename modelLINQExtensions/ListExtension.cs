@@ -5,6 +5,10 @@ using System.Text;
 
 namespace modelLINQ
 {
+    /// <summary>
+    /// List extension handles generating
+    /// any expression based on a list of objects/primatives
+    /// </summary>
     public static class ListExtension
     {
         /// <summary>
@@ -47,7 +51,7 @@ namespace modelLINQ
             return Expression.Bind(
                     typeof(TBindingTo).GetProperty(bindingPropertyName),
                     param
-                        .WherePredictate<TSelectSource>(predicateGenerator)
+                        .WherePredicate<TSelectSource>(predicateGenerator)
                         .SelectProperty<TSelectSource, TSelectResult>(propertyToBind, asList: asList)
                     );
         }
@@ -146,6 +150,20 @@ namespace modelLINQ
                     );
         }
 
+        /// <summary>
+        /// Bind a filtered property from a list of objects
+        /// </summary>
+        /// <typeparam name="TBindingTo">The source to bind to</typeparam>
+        /// <typeparam name="TSelectSource">The select source for binding the filtered property</typeparam>
+        /// <typeparam name="TSelectResult">The selected result to bind</typeparam>
+        /// <param name="param">The expression parameter to get the binding from</param>
+        /// <param name="bindingPropertyName">The binding property name</param>
+        /// <param name="propertyToBind">The property of the object to bind</param>
+        /// <param name="predicateGenerator">The filter predicate expression generator</param>
+        /// <param name="asList">If we want to return a list</param>
+        /// <returns>
+        /// A member assignment of a filtered property
+        /// </returns>
         public static MemberAssignment BindFilteredProperty<TBindingTo, TSelectSource, TSelectResult>(this Expression param, string bindingPropertyName, string propertyToBind, Func<Expression, Expression> predicateGenerator, bool asList)
         {
             return Expression.Bind(
@@ -163,16 +181,22 @@ namespace modelLINQ
         /// <typeparam name="TSelectResult">The result object of the selected</typeparam>
         /// <param name="param">The param of the tparent to get the property of</param>
         /// <param name="bindingPropertyName">The name of the binding property</param>
-        /// <param name="paramPropertyName">The property of the param to select on</param>
         /// <param name="bindingGenerator">The assigment bindings</param>
+        /// <param name="propNames">The property name(s) of the param to select on</param>
         /// <returns>
         /// A memeber assigment of selecting a list of tresult
         /// </returns>
-        public static MemberAssignment BindSelectedList<TBindingTo, TSelectSource, TSelectResult>(this Expression param, string bindingPropertyName, string paramPropertyName, Func<Expression, MemberAssignment[]> bindingGenerator)
+        public static MemberAssignment BindSelectedList<TBindingTo, TSelectSource, TSelectResult>(this Expression param, string bindingPropertyName, Func<Expression, MemberAssignment[]> bindingGenerator, params string[] propNames)
         {
+            Expression prop = param;
+            foreach (string name in propNames)
+            {
+                prop = Expression.Property(prop, name);
+            }
+
             return Expression.Bind(
                     typeof(TBindingTo).GetProperty(bindingPropertyName),
-                    Expression.Property(param, paramPropertyName).Select<TSelectSource, TSelectResult>(bindingGenerator, asList: true)
+                    prop.Select<TSelectSource, TSelectResult>(bindingGenerator, asList: true)
                     );
         }
 

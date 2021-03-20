@@ -5,6 +5,10 @@ using System.Text;
 
 namespace modelLINQ
 {
+    /// <summary>
+    /// Object extension handles the generation
+    /// of binding an object to a property
+    /// </summary>
     public static class ObjectExtension
     {
         /// <summary>

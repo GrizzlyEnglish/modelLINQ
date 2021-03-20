@@ -7,8 +7,8 @@
   - [BindCount\`\`2(bindToProperty,countParameter)](#M-modelLINQ-BindingExtension-BindCount``2-System-Linq-Expressions-Expression,System-String- 'modelLINQ.BindingExtension.BindCount``2(System.Linq.Expressions.Expression,System.String)')
   - [BindHasAny\`\`2(param,bindPropname,anyPredicate,propNames)](#M-modelLINQ-BindingExtension-BindHasAny``2-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String[]- 'modelLINQ.BindingExtension.BindHasAny``2(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String[])')
   - [DirectBind\`\`1(param)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression)')
-  - [DirectBind\`\`1(param,propName)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)')
   - [DirectBind\`\`1(param,bindPropname,propNames)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String,System-String[]- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String,System.String[])')
+  - [DirectBind\`\`1(param,propName)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)')
   - [PropertyHasValue\`\`2(param,propName,bindToPropertyName)](#M-modelLINQ-BindingExtension-PropertyHasValue``2-System-Linq-Expressions-Expression,System-String,System-String- 'modelLINQ.BindingExtension.PropertyHasValue``2(System.Linq.Expressions.Expression,System.String,System.String)')
 - [ListExtension](#T-modelLINQ-ListExtension 'modelLINQ.ListExtension')
   - [BindFilteredItem\`\`3(param,bindingPropertyName,predicateGenerator,bindingGenerator)](#M-modelLINQ-ListExtension-BindFilteredItem``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}- 'modelLINQ.ListExtension.BindFilteredItem``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})')
@@ -16,6 +16,7 @@
   - [BindFilteredList\`\`3(param,bindingPropertyName,predicateGenerator,bindingGenerator)](#M-modelLINQ-ListExtension-BindFilteredList``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}- 'modelLINQ.ListExtension.BindFilteredList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})')
   - [BindFilteredList\`\`3(param,bindingPropertyName,paramPropertyName,predicateGenerator,bindingGenerator)](#M-modelLINQ-ListExtension-BindFilteredList``3-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}- 'modelLINQ.ListExtension.BindFilteredList``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})')
   - [BindFilteredPropertyItem\`\`3(param,bindingPropertyName,predicateGenerator,propertyToBind,asList)](#M-modelLINQ-ListExtension-BindFilteredPropertyItem``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String,System-Boolean- 'modelLINQ.ListExtension.BindFilteredPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String,System.Boolean)')
+  - [BindFilteredProperty\`\`3(param,bindingPropertyName,propertyToBind,predicateGenerator,asList)](#M-modelLINQ-ListExtension-BindFilteredProperty``3-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Boolean- 'modelLINQ.ListExtension.BindFilteredProperty``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Boolean)')
   - [BindOrderedFilteredItem\`\`4(param,bindingPropertyName,orderByProperty,predicateGenerator,bindingGenerator,desc)](#M-modelLINQ-ListExtension-BindOrderedFilteredItem``4-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean- 'modelLINQ.ListExtension.BindOrderedFilteredItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)')
   - [BindOrderedFilteredItem\`\`4(param,bindingPropertyName,paramPropertyName,orderByProperty,predicateGenerator,bindingGenerator,desc)](#M-modelLINQ-ListExtension-BindOrderedFilteredItem``4-System-Linq-Expressions-Expression,System-String,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean- 'modelLINQ.ListExtension.BindOrderedFilteredItem``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)')
   - [BindOrderedFilteredList\`\`4(param,bindingPropertyName,paramPropertyName,orderByProperty,predicateGenerator,bindingGenerator,desc)](#M-modelLINQ-ListExtension-BindOrderedFilteredList``4-System-Linq-Expressions-Expression,System-String,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean- 'modelLINQ.ListExtension.BindOrderedFilteredList``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)')
@@ -25,7 +26,7 @@
   - [BindOrderedList\`\`4(param,bindingPropertyName,orderByProperty,bindingGenerator,desc)](#M-modelLINQ-ListExtension-BindOrderedList``4-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean- 'modelLINQ.ListExtension.BindOrderedList``4(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)')
   - [BindOrderedList\`\`4(param,bindingPropertyName,paramPropertyName,orderByProperty,bindingGenerator,desc)](#M-modelLINQ-ListExtension-BindOrderedList``4-System-Linq-Expressions-Expression,System-String,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean- 'modelLINQ.ListExtension.BindOrderedList``4(System.Linq.Expressions.Expression,System.String,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean)')
   - [BindSelectedList\`\`3(param,bindingPropertyName,bindingGenerator)](#M-modelLINQ-ListExtension-BindSelectedList``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}- 'modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})')
-  - [BindSelectedList\`\`3(param,bindingPropertyName,paramPropertyName,bindingGenerator)](#M-modelLINQ-ListExtension-BindSelectedList``3-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}- 'modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})')
+  - [BindSelectedList\`\`3(param,bindingPropertyName,bindingGenerator,propNames)](#M-modelLINQ-ListExtension-BindSelectedList``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String[]- 'modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String[])')
   - [BindSelectedPropertyItem\`\`3(param,bindingPropertyName,propertyToBind)](#M-modelLINQ-ListExtension-BindSelectedPropertyItem``3-System-Linq-Expressions-Expression,System-String,System-String- 'modelLINQ.ListExtension.BindSelectedPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.String)')
   - [BindSelectedPropertyItem\`\`3(param,bindingPropertyName,selectOnPropertyName,propertyToBind)](#M-modelLINQ-ListExtension-BindSelectedPropertyItem``3-System-Linq-Expressions-Expression,System-String,System-String,System-String- 'modelLINQ.ListExtension.BindSelectedPropertyItem``3(System.Linq.Expressions.Expression,System.String,System.String,System.String)')
   - [BindSelectedPropertyList\`\`3(param,bindingPropertyName,propertyToBind)](#M-modelLINQ-ListExtension-BindSelectedPropertyList``3-System-Linq-Expressions-Expression,System-String,System-String- 'modelLINQ.ListExtension.BindSelectedPropertyList``3(System.Linq.Expressions.Expression,System.String,System.String)')
@@ -45,8 +46,8 @@
   - [Select\`\`2(param,assigments,sourceName,asList)](#M-modelLINQ-MethodExtension-Select``2-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-Boolean- 'modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean)')
   - [Select\`\`3(bindingParam,orderByProperty,predicate,assigments,predicateSourceName,selectSourceName,desc,asList)](#M-modelLINQ-MethodExtension-Select``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-String,System-Boolean,System-Boolean- 'modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.String,System.Boolean,System.Boolean)')
   - [Select\`\`3(predicate,orderByProperty,assigments,sourceName,desc,asList)](#M-modelLINQ-MethodExtension-Select``3-System-Linq-Expressions-MethodCallExpression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean,System-String,System-Boolean- 'modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.MethodCallExpression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.Boolean,System.String,System.Boolean)')
-  - [Select\`\`3(param,orderBy,assigments,sourceName,desc,asList)](#M-modelLINQ-MethodExtension-Select``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-Boolean,System-Boolean- 'modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean,System.Boolean)')
-  - [WherePredictate\`\`1(bindingParam,predicate,paramName)](#M-modelLINQ-MethodExtension-WherePredictate``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String- 'modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)')
+  - [Select\`\`3(param,orderByProperty,assigments,sourceName,desc,asList)](#M-modelLINQ-MethodExtension-Select``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-Boolean,System-Boolean- 'modelLINQ.MethodExtension.Select``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean,System.Boolean)')
+  - [WherePredicate\`\`1(bindingParam,predicate,paramName)](#M-modelLINQ-MethodExtension-WherePredicate``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String- 'modelLINQ.MethodExtension.WherePredicate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)')
   - [WherePredictate\`\`1(param,paramPropertyName,predicate,paramName)](#M-modelLINQ-MethodExtension-WherePredictate``1-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String- 'modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)')
 - [ModelExtension](#T-modelLINQ-ModelExtension 'modelLINQ.ModelExtension')
   - [AsModel\`\`2()](#M-modelLINQ-ModelExtension-AsModel``2 'modelLINQ.ModelExtension.AsModel``2')
@@ -63,6 +64,11 @@
 ##### Namespace
 
 modelLINQ
+
+##### Summary
+
+Binding extension handles the direct binding
+of a property to some expression
 
 <a name='M-modelLINQ-BindingExtension-BindCount``2-System-Linq-Expressions-Expression,System-String-'></a>
 ### BindCount\`\`2(bindToProperty,countParameter) `method`
@@ -113,7 +119,7 @@ A has any memberassignment
 
 | Name | Description |
 | ---- | ----------- |
-| TSelectResult | The selected result type |
+| TBindingTo | The source of binding |
 | TAnySource | The any type check |
 
 ##### Exceptions
@@ -146,30 +152,6 @@ An assignment array of all the properties
 | ---- | ----------- |
 | TResult | The result of the mapping |
 
-<a name='M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String-'></a>
-### DirectBind\`\`1(param,propName) `method`
-
-##### Summary
-
-Directly bind the same property from the source to the result
-
-##### Returns
-
-A member assignment of the direct binding
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| param | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source parameter expression |
-| propName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the property we are binding |
-
-##### Generic Types
-
-| Name | Description |
-| ---- | ----------- |
-| TResult | The object we are binding the property to |
-
 <a name='M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String,System-String[]-'></a>
 ### DirectBind\`\`1(param,bindPropname,propNames) `method`
 
@@ -193,7 +175,31 @@ A binding of the sub param on the bind prop name
 
 | Name | Description |
 | ---- | ----------- |
-| TSelectResult | The result we are binding to |
+| TBindingTo | The source of binding |
+
+<a name='M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String-'></a>
+### DirectBind\`\`1(param,propName) `method`
+
+##### Summary
+
+Directly bind the same property from the source to the result
+
+##### Returns
+
+A member assignment of the direct binding
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| param | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The source parameter expression |
+| propName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the property we are binding |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TBindingTo | The object we are binding the property to |
 
 <a name='M-modelLINQ-BindingExtension-PropertyHasValue``2-System-Linq-Expressions-Expression,System-String,System-String-'></a>
 ### PropertyHasValue\`\`2(param,propName,bindToPropertyName) `method`
@@ -228,6 +234,11 @@ The ternirary binding with the item or null
 ##### Namespace
 
 modelLINQ
+
+##### Summary
+
+List extension handles generating
+any expression based on a list of objects/primatives
 
 <a name='M-modelLINQ-ListExtension-BindFilteredItem``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}-'></a>
 ### BindFilteredItem\`\`3(param,bindingPropertyName,predicateGenerator,bindingGenerator) `method`
@@ -371,6 +382,35 @@ The memberassignment of the filtered property
 | TBindingTo | The type of the binding |
 | TSelectSource | The type of the select for getting the property |
 | TSelectResult | The result of the select |
+
+<a name='M-modelLINQ-ListExtension-BindFilteredProperty``3-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Boolean-'></a>
+### BindFilteredProperty\`\`3(param,bindingPropertyName,propertyToBind,predicateGenerator,asList) `method`
+
+##### Summary
+
+Bind a filtered property from a list of objects
+
+##### Returns
+
+A member assignment of a filtered property
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| param | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The expression parameter to get the binding from |
+| bindingPropertyName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The binding property name |
+| propertyToBind | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The property of the object to bind |
+| predicateGenerator | [System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression}') | The filter predicate expression generator |
+| asList | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | If we want to return a list |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TBindingTo | The source to bind to |
+| TSelectSource | The select source for binding the filtered property |
+| TSelectResult | The selected result to bind |
 
 <a name='M-modelLINQ-ListExtension-BindOrderedFilteredItem``4-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-Boolean-'></a>
 ### BindOrderedFilteredItem\`\`4(param,bindingPropertyName,orderByProperty,predicateGenerator,bindingGenerator,desc) `method`
@@ -650,8 +690,8 @@ A memeber assigment of selecting a list of tresult
 | TSelectSource | The source of the binding result |
 | TSelectResult | The result object of the selected |
 
-<a name='M-modelLINQ-ListExtension-BindSelectedList``3-System-Linq-Expressions-Expression,System-String,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}-'></a>
-### BindSelectedList\`\`3(param,bindingPropertyName,paramPropertyName,bindingGenerator) `method`
+<a name='M-modelLINQ-ListExtension-BindSelectedList``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String[]-'></a>
+### BindSelectedList\`\`3(param,bindingPropertyName,bindingGenerator,propNames) `method`
 
 ##### Summary
 
@@ -668,8 +708,8 @@ A memeber assigment of selecting a list of tresult
 | ---- | ---- | ----------- |
 | param | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The param of the tparent to get the property of |
 | bindingPropertyName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the binding property |
-| paramPropertyName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The property of the param to select on |
 | bindingGenerator | [System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]}') | The assigment bindings |
+| propNames | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | The property name(s) of the param to select on |
 
 ##### Generic Types
 
@@ -822,6 +862,11 @@ An expression tree of the select binding
 ##### Namespace
 
 modelLINQ
+
+##### Summary
+
+Method extensions handles the expression 
+calls to methods like any, where, select, ect
 
 <a name='M-modelLINQ-MethodExtension-Any``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression}-'></a>
 ### Any\`\`1(param,anyPredicateExpression) `method`
@@ -1141,7 +1186,7 @@ A filtered orderd list/item of TResults MethodCallExpression
 | TSelectResult | The result model the list will contain |
 
 <a name='M-modelLINQ-MethodExtension-Select``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-Boolean,System-Boolean-'></a>
-### Select\`\`3(param,orderBy,assigments,sourceName,desc,asList) `method`
+### Select\`\`3(param,orderByProperty,assigments,sourceName,desc,asList) `method`
 
 ##### Summary
 
@@ -1157,7 +1202,7 @@ A orderd list of TResults MethodCallExpression
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | param | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The expression param that contains the property to sellect off |
-| orderBy | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The order by expression |
+| orderByProperty | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The order by expression |
 | assigments | [System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]}') | The member assignments to generate the model from the parm |
 | sourceName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Lets you override the source name if necessary of the lambda select body |
 | desc | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | If we are ordering by descending |
@@ -1171,8 +1216,8 @@ A orderd list of TResults MethodCallExpression
 | TOrderBy | The ordering by type |
 | TSelectResult | The result model the list will contain |
 
-<a name='M-modelLINQ-MethodExtension-WherePredictate``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String-'></a>
-### WherePredictate\`\`1(bindingParam,predicate,paramName) `method`
+<a name='M-modelLINQ-MethodExtension-WherePredicate``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String-'></a>
+### WherePredicate\`\`1(bindingParam,predicate,paramName) `method`
 
 ##### Summary
 
@@ -1232,6 +1277,11 @@ A filtered list
 ##### Namespace
 
 modelLINQ
+
+##### Summary
+
+Model extension handles all the modeling
+of an object to another object
 
 <a name='M-modelLINQ-ModelExtension-AsModel``2'></a>
 ### AsModel\`\`2() `method`
@@ -1339,6 +1389,11 @@ A conditional expression that is binds null or a memberinit
 ##### Namespace
 
 modelLINQ
+
+##### Summary
+
+Object extension handles the generation
+of binding an object to a property
 
 <a name='M-modelLINQ-ObjectExtension-ObjectBind``3-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]}-'></a>
 ### ObjectBind\`\`3(param,bindingProperty,bindingGenerator) `method`

@@ -7,6 +7,10 @@ using System.Reflection;
 
 namespace modelLINQ
 {
+    /// <summary>
+    /// Model extension handles all the modeling
+    /// of an object to another object
+    /// </summary>
     public static class ModelExtension
     {
         /// <summary>

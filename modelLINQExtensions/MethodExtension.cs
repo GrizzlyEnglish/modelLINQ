@@ -7,6 +7,10 @@ using System.Text;
 
 namespace modelLINQ
 {
+    /// <summary>
+    /// Method extensions handles the expression 
+    /// calls to methods like any, where, select, ect
+    /// </summary>
     public static class MethodExtension
     {
 
@@ -118,7 +122,7 @@ namespace modelLINQ
         /// <returns>
         /// A filtered list
         /// </returns>
-        public static MethodCallExpression WherePredictate<TSource>(this Expression bindingParam, Func<Expression, Expression> predicate, string paramName = "whereSource")
+        public static MethodCallExpression WherePredicate<TSource>(this Expression bindingParam, Func<Expression, Expression> predicate, string paramName = "whereSource")
         {
             ParameterExpression whereParam = Expression.Parameter(typeof(TSource), paramName);
 
@@ -151,7 +155,7 @@ namespace modelLINQ
         /// </returns>
         public static MethodCallExpression WherePredictate<TSource>(this Expression param, string paramPropertyName, Func<Expression, Expression> predicate, string paramName = "whereSource")
         {
-            return WherePredictate<TSource>(Expression.Property(param, paramPropertyName), predicate, paramName);
+            return WherePredicate<TSource>(Expression.Property(param, paramPropertyName), predicate, paramName);
         }
 
         /// <summary>
@@ -171,7 +175,7 @@ namespace modelLINQ
         /// </returns>
         public static MethodCallExpression Select<TSelectSource, TSelectResult>(this Expression bindingParam, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool asList = false)
         {
-            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+            return WherePredicate<TSelectSource>(bindingParam, predicate, predicateSourceName)
                 .Select<TSelectSource, TSelectResult>(assigments, selectSourceName, asList);
         }
 
@@ -190,7 +194,7 @@ namespace modelLINQ
         /// </returns>
         public static MethodCallExpression SelectProperty<TSelectSource, TSelectResult>(this Expression bindingParam, Func<Expression, Expression> predicate, string selectPropertyName, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool asList = false)
         {
-            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+            return WherePredicate<TSelectSource>(bindingParam, predicate, predicateSourceName)
                 .SelectProperty<TSelectSource, TSelectResult>(selectPropertyName, selectSourceName, asList);
         }
 
@@ -215,7 +219,7 @@ namespace modelLINQ
         /// </returns>
         public static MethodCallExpression Select<TSelectSource, TOrderBy, TSelectResult>(this Expression bindingParam, string orderByProperty, Func<Expression, Expression> predicate, Func<Expression, MemberAssignment[]> assigments, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool desc = false, bool asList = false)
         {
-            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+            return WherePredicate<TSelectSource>(bindingParam, predicate, predicateSourceName)
                 .Select<TSelectSource, TOrderBy, TSelectResult>(orderByProperty, assigments, desc, selectSourceName, asList);
         }
 
@@ -392,7 +396,7 @@ namespace modelLINQ
         /// <typeparam name="TOrderBy">The ordering by type</typeparam>
         /// <typeparam name="TSelectResult">The result model the list will contain</typeparam>
         /// <param name="param">The expression param that contains the property to sellect off</param>
-        /// <param name="orderBy">The order by expression</param>
+        /// <param name="orderByProperty">The order by expression</param>
         /// <param name="assigments">The member assignments to generate the model from the parm</param>
         /// <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
         /// <param name="desc">If we are ordering by descending</param>

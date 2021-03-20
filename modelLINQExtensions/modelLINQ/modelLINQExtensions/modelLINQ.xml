@@ -4,6 +4,12 @@
         <name>modelLINQ</name>
     </assembly>
     <members>
+        <member name="T:modelLINQ.BindingExtension">
+            <summary>
+            Binding extension handles the direct binding
+            of a property to some expression
+            </summary>
+        </member>
         <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression)">
             <summary>
             Gets the direct mapping assignments from one source param
@@ -13,17 +19,6 @@
             <param name="param">The source param of the mapping</param>
             <returns>
             An assignment array of all the properties
-            </returns>
-        </member>
-        <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)">
-            <summary>
-            Directly bind the same property from the source to the result
-            </summary>
-            <typeparam name="TResult">The object we are binding the property to</typeparam>
-            <param name="param">The source parameter expression</param>
-            <param name="propName">The name of the property we are binding</param>
-            <returns>
-            A member assignment of the direct binding
             </returns>
         </member>
         <member name="M:modelLINQ.BindingExtension.PropertyHasValue``2(System.Linq.Expressions.Expression,System.String,System.String)">
@@ -44,7 +39,7 @@
             <summary>
             Direct bind on sublevel properties as many names that are passed through
             </summary>
-            <typeparam name="TSelectResult">The result we are binding to</typeparam>
+            <typeparam name="TBindingTo">The source of binding</typeparam>
             <param name="param">The top level param we will get the sub property from</param>
             <param name="bindPropname">The name of the property to bind the param on</param>
             <param name="propNames">The property names we will expand</param>
@@ -52,11 +47,22 @@
             A binding of the sub param on the bind prop name
             </returns>
         </member>
+        <member name="M:modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)">
+            <summary>
+            Directly bind the same property from the source to the result
+            </summary>
+            <typeparam name="TBindingTo">The object we are binding the property to</typeparam>
+            <param name="param">The source parameter expression</param>
+            <param name="propName">The name of the property we are binding</param>
+            <returns>
+            A member assignment of the direct binding
+            </returns>
+        </member>
         <member name="M:modelLINQ.BindingExtension.BindHasAny``2(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String[])">
             <summary>
             Bind a has any function on a parameter
             </summary>
-            <typeparam name="TSelectResult">The selected result type</typeparam>
+            <typeparam name="TBindingTo">The source of binding</typeparam>
             <typeparam name="TAnySource">The any type check</typeparam>
             <param name="param">The source parameter</param>
             <param name="bindPropname">The selected results type property</param>
@@ -78,6 +84,12 @@
             <returns>
             The binding member assignment
             </returns>
+        </member>
+        <member name="T:modelLINQ.ListExtension">
+            <summary>
+            List extension handles generating
+            any expression based on a list of objects/primatives
+            </summary>
         </member>
         <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
             <summary>
@@ -182,7 +194,23 @@
             An expression tree of the select binding
             </returns>
         </member>
-        <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
+        <member name="M:modelLINQ.ListExtension.BindFilteredProperty``3(System.Linq.Expressions.Expression,System.String,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Boolean)">
+            <summary>
+            Bind a filtered property from a list of objects
+            </summary>
+            <typeparam name="TBindingTo">The source to bind to</typeparam>
+            <typeparam name="TSelectSource">The select source for binding the filtered property</typeparam>
+            <typeparam name="TSelectResult">The selected result to bind</typeparam>
+            <param name="param">The expression parameter to get the binding from</param>
+            <param name="bindingPropertyName">The binding property name</param>
+            <param name="propertyToBind">The property of the object to bind</param>
+            <param name="predicateGenerator">The filter predicate expression generator</param>
+            <param name="asList">If we want to return a list</param>
+            <returns>
+            A member assignment of a filtered property
+            </returns>
+        </member>
+        <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String[])">
             <summary>
             Binds a selected list to the binding property name on the TBindingTo from
             the TSelectSource as a TSelectResult
@@ -192,8 +220,8 @@
             <typeparam name="TSelectResult">The result object of the selected</typeparam>
             <param name="param">The param of the tparent to get the property of</param>
             <param name="bindingPropertyName">The name of the binding property</param>
-            <param name="paramPropertyName">The property of the param to select on</param>
             <param name="bindingGenerator">The assigment bindings</param>
+            <param name="propNames">The property name(s) of the param to select on</param>
             <returns>
             A memeber assigment of selecting a list of tresult
             </returns>
@@ -406,6 +434,12 @@
             A binding assigment of an ordered list
             </returns>
         </member>
+        <member name="T:modelLINQ.MethodExtension">
+            <summary>
+            Method extensions handles the expression 
+            calls to methods like any, where, select, ect
+            </summary>
+        </member>
         <member name="M:modelLINQ.MethodExtension.GetSelect">
             <summary>
             Gets the select method info from Enumerable
@@ -450,7 +484,7 @@
             A method call expression of the count
             </returns>
         </member>
-        <member name="M:modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)">
+        <member name="M:modelLINQ.MethodExtension.WherePredicate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)">
             <summary>
             Generates a where predicate in order to filter a list
             down by the function predicate, generally to be selected or
@@ -603,7 +637,7 @@
             <typeparam name="TOrderBy">The ordering by type</typeparam>
             <typeparam name="TSelectResult">The result model the list will contain</typeparam>
             <param name="param">The expression param that contains the property to sellect off</param>
-            <param name="orderBy">The order by expression</param>
+            <param name="orderByProperty">The order by expression</param>
             <param name="assigments">The member assignments to generate the model from the parm</param>
             <param name="sourceName">Lets you override the source name if necessary of the lambda select body</param>
             <param name="desc">If we are ordering by descending</param>
@@ -622,6 +656,12 @@
             <returns>
             A any method call expression
             </returns>
+        </member>
+        <member name="T:modelLINQ.ModelExtension">
+            <summary>
+            Model extension handles all the modeling
+            of an object to another object
+            </summary>
         </member>
         <member name="M:modelLINQ.ModelExtension.Model``2(System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberBinding[]},System.String)">
             <summary>
@@ -671,6 +711,12 @@
             <returns>
             A conditional expression that is binds null or a memberinit
             </returns>
+        </member>
+        <member name="T:modelLINQ.ObjectExtension">
+            <summary>
+            Object extension handles the generation
+            of binding an object to a property
+            </summary>
         </member>
         <member name="M:modelLINQ.ObjectExtension.ObjectBind``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
             <summary>

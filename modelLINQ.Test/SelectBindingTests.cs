@@ -112,7 +112,7 @@ namespace modelLINQ.Test
         {
             MemberAssignment[] assignments = new MemberAssignment[]
             {
-                sourceParam.BindSelectedList<ObjectE, ObjectA, ObjectB>("ListOfB", "ListOfA", ObjectB.FromObjectA)
+                sourceParam.BindSelectedList<ObjectE, ObjectA, ObjectB>("ListOfB", ObjectB.FromObjectA, "ListOfA")
             };
 
             ObjectE obj = listOfObjectD.Select(Expression.Lambda<Func<ObjectD, ObjectE>>(

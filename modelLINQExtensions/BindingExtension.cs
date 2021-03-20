@@ -7,6 +7,10 @@ using System.Text;
 
 namespace modelLINQ
 {
+    /// <summary>
+    /// Binding extension handles the direct binding
+    /// of a property to some expression
+    /// </summary>
     public static class BindingExtension
     {
         /// <summary>
@@ -45,20 +49,6 @@ namespace modelLINQ
         }
 
         /// <summary>
-        /// Directly bind the same property from the source to the result
-        /// </summary>
-        /// <typeparam name="TResult">The object we are binding the property to</typeparam>
-        /// <param name="param">The source parameter expression</param>
-        /// <param name="propName">The name of the property we are binding</param>
-        /// <returns>
-        /// A member assignment of the direct binding
-        /// </returns>
-        public static MemberAssignment DirectBind<TResult>(this Expression param, string propName)
-        {
-            return Expression.Bind(typeof(TResult).GetProperty(propName), Expression.Property(param, propName));
-        }
-
-        /// <summary>
         /// Binds to the property as a terinary statement with null
         /// backing if it is null
         /// </summary>
@@ -82,14 +72,14 @@ namespace modelLINQ
         /// <summary>
         /// Direct bind on sublevel properties as many names that are passed through
         /// </summary>
-        /// <typeparam name="TSelectResult">The result we are binding to</typeparam>
+        /// <typeparam name="TBindingTo">The source of binding</typeparam>
         /// <param name="param">The top level param we will get the sub property from</param>
         /// <param name="bindPropname">The name of the property to bind the param on</param>
         /// <param name="propNames">The property names we will expand</param>
         /// <returns>
         /// A binding of the sub param on the bind prop name
         /// </returns>
-        public static MemberAssignment DirectBind<TSelectResult>(this Expression param, string bindPropname, params string[] propNames)
+        public static MemberAssignment DirectBind<TBindingTo>(this Expression param, string bindPropname, params string[] propNames)
         {
             Expression prop = param;
             foreach (string name in propNames)
@@ -97,14 +87,28 @@ namespace modelLINQ
                 prop = Expression.Property(prop, name);
             }
 
-            return Expression.Bind(typeof(TSelectResult).GetProperty(bindPropname), prop);
+            return DirectBind<TBindingTo>(prop, bindPropname);
+        }
+
+        /// <summary>
+        /// Directly bind the same property from the source to the result
+        /// </summary>
+        /// <typeparam name="TBindingTo">The object we are binding the property to</typeparam>
+        /// <param name="param">The source parameter expression</param>
+        /// <param name="propName">The name of the property we are binding</param>
+        /// <returns>
+        /// A member assignment of the direct binding
+        /// </returns>
+        public static MemberAssignment DirectBind<TBindingTo>(this Expression param, string propName)
+        {
+            return Expression.Bind(typeof(TBindingTo).GetProperty(propName), Expression.Property(param, propName));
         }
 
 
         /// <summary>
         /// Bind a has any function on a parameter
         /// </summary>
-        /// <typeparam name="TSelectResult">The selected result type</typeparam>
+        /// <typeparam name="TBindingTo">The source of binding</typeparam>
         /// <typeparam name="TAnySource">The any type check</typeparam>
         /// <param name="param">The source parameter</param>
         /// <param name="bindPropname">The selected results type property</param>
@@ -114,7 +118,7 @@ namespace modelLINQ
         /// <returns>
         /// A has any memberassignment
         /// </returns>
-        public static MemberAssignment BindHasAny<TSelectResult, TAnySource>(this Expression param, string bindPropname, Func<Expression, Expression> anyPredicate, params string[] propNames)
+        public static MemberAssignment BindHasAny<TBindingTo, TAnySource>(this Expression param, string bindPropname, Func<Expression, Expression> anyPredicate, params string[] propNames)
         {
             Expression prop = param;
             foreach (string name in propNames)
@@ -122,7 +126,7 @@ namespace modelLINQ
                 prop = Expression.Property(prop, name);
             }
 
-            PropertyInfo bindingProperty = typeof(TSelectResult).GetProperty(bindPropname);
+            PropertyInfo bindingProperty = typeof(TBindingTo).GetProperty(bindPropname);
 
             if (bindingProperty.PropertyType != typeof(bool))
             {

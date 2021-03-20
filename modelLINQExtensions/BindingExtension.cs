@@ -87,7 +87,7 @@ namespace modelLINQ
                 prop = Expression.Property(prop, name);
             }
 
-            return DirectBind<TBindingTo>(prop, bindPropname);
+            return Expression.Bind(typeof(TBindingTo).GetProperty(bindPropname), prop);
         }
 
         /// <summary>

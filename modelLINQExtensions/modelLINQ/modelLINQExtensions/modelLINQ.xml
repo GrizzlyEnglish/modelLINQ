@@ -67,6 +67,18 @@
             A has any memberassignment
             </returns>
         </member>
+        <member name="M:modelLINQ.BindingExtension.BindCount``2(System.Linq.Expressions.Expression,System.String)">
+            <summary>
+            Binds the count of a list of items
+            </summary>
+            <typeparam name="TBindingTo">The type of the model to bind to</typeparam>
+            <typeparam name="TCountSource">The type of the list for the count</typeparam>
+            <param name="bindToProperty">The property name of the model to bind to</param>
+            <param name="countParameter">The list parameter to generate the count</param>
+            <returns>
+            The binding member assignment
+            </returns>
+        </member>
         <member name="M:modelLINQ.ListExtension.BindSelectedList``3(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]})">
             <summary>
             Binds a selected list to the binding property name on the TBindingTo from
@@ -427,6 +439,17 @@
             Order by Method Info
             </returns>
         </member>
+        <member name="M:modelLINQ.MethodExtension.Count``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Generates a count method call to get the count
+            of a list of items
+            </summary>
+            <typeparam name="TCountSource">The source of the count</typeparam>
+            <param name="countParameter">The parameter source of the list</param>
+            <returns>
+            A method call expression of the count
+            </returns>
+        </member>
         <member name="M:modelLINQ.MethodExtension.WherePredictate``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String)">
             <summary>
             Generates a where predicate in order to filter a list
@@ -466,6 +489,21 @@
             <param name="bindingParam">The binding param of the predicate</param>
             <param name="predicate">The predicate to filter the results on</param>
             <param name="assigments">The assignments of the result</param>
+            <param name="predicateSourceName">The predicate source name override</param>
+            <param name="selectSourceName">The source name override</param>
+            <param name="asList">If we want to select as a list</param>
+            <returns>
+            A filitered list of TSelectResult
+            </returns>
+        </member>
+        <member name="M:modelLINQ.MethodExtension.SelectProperty``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            </summary>
+            <typeparam name="TSelectSource">The source of the list of items</typeparam>
+            <typeparam name="TSelectResult">The result of the list of items</typeparam>
+            <param name="bindingParam">The binding param of the predicate</param>
+            <param name="predicate">The predicate to filter the results on</param>
+            <param name="selectPropertyName">The name of the property being selected off of TSelectSource</param>
             <param name="predicateSourceName">The predicate source name override</param>
             <param name="selectSourceName">The source name override</param>
             <param name="asList">If we want to select as a list</param>

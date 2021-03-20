@@ -4,6 +4,7 @@
 ## Contents
 
 - [BindingExtension](#T-modelLINQ-BindingExtension 'modelLINQ.BindingExtension')
+  - [BindCount\`\`2(bindToProperty,countParameter)](#M-modelLINQ-BindingExtension-BindCount``2-System-Linq-Expressions-Expression,System-String- 'modelLINQ.BindingExtension.BindCount``2(System.Linq.Expressions.Expression,System.String)')
   - [BindHasAny\`\`2(param,bindPropname,anyPredicate,propNames)](#M-modelLINQ-BindingExtension-BindHasAny``2-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String[]- 'modelLINQ.BindingExtension.BindHasAny``2(System.Linq.Expressions.Expression,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String[])')
   - [DirectBind\`\`1(param)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression)')
   - [DirectBind\`\`1(param,propName)](#M-modelLINQ-BindingExtension-DirectBind``1-System-Linq-Expressions-Expression,System-String- 'modelLINQ.BindingExtension.DirectBind``1(System.Linq.Expressions.Expression,System.String)')
@@ -32,10 +33,12 @@
   - [BindSelectedProperty\`\`3(param,bindingPropertyName,propertyToBind)](#M-modelLINQ-ListExtension-BindSelectedProperty``3-System-Linq-Expressions-Expression,System-String,System-String,System-Boolean- 'modelLINQ.ListExtension.BindSelectedProperty``3(System.Linq.Expressions.Expression,System.String,System.String,System.Boolean)')
 - [MethodExtension](#T-modelLINQ-MethodExtension 'modelLINQ.MethodExtension')
   - [Any\`\`1(param,anyPredicateExpression)](#M-modelLINQ-MethodExtension-Any``1-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression}- 'modelLINQ.MethodExtension.Any``1(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression})')
+  - [Count\`\`1(countParameter)](#M-modelLINQ-MethodExtension-Count``1-System-Linq-Expressions-Expression- 'modelLINQ.MethodExtension.Count``1(System.Linq.Expressions.Expression)')
   - [GetAny()](#M-modelLINQ-MethodExtension-GetAny 'modelLINQ.MethodExtension.GetAny')
   - [GetOrderBy(desc)](#M-modelLINQ-MethodExtension-GetOrderBy-System-Boolean- 'modelLINQ.MethodExtension.GetOrderBy(System.Boolean)')
   - [GetSelect()](#M-modelLINQ-MethodExtension-GetSelect 'modelLINQ.MethodExtension.GetSelect')
   - [GetWhere()](#M-modelLINQ-MethodExtension-GetWhere 'modelLINQ.MethodExtension.GetWhere')
+  - [SelectProperty\`\`2(bindingParam,predicate,selectPropertyName,predicateSourceName,selectSourceName,asList)](#M-modelLINQ-MethodExtension-SelectProperty``2-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String,System-String,System-String,System-Boolean- 'modelLINQ.MethodExtension.SelectProperty``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.String,System.String,System.String,System.Boolean)')
   - [SelectProperty\`\`2(param,propertyName,sourceName,asList)](#M-modelLINQ-MethodExtension-SelectProperty``2-System-Linq-Expressions-Expression,System-String,System-String,System-Boolean- 'modelLINQ.MethodExtension.SelectProperty``2(System.Linq.Expressions.Expression,System.String,System.String,System.Boolean)')
   - [Select\`\`2(bindingParam,predicate,assigments,predicateSourceName,selectSourceName,asList)](#M-modelLINQ-MethodExtension-Select``2-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-String,System-Boolean- 'modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.String,System.Boolean)')
   - [Select\`\`2(predicate,assigments,sourceName,asList)](#M-modelLINQ-MethodExtension-Select``2-System-Linq-Expressions-MethodCallExpression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-MemberAssignment[]},System-String,System-Boolean- 'modelLINQ.MethodExtension.Select``2(System.Linq.Expressions.MethodCallExpression,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.MemberAssignment[]},System.String,System.Boolean)')
@@ -60,6 +63,31 @@
 ##### Namespace
 
 modelLINQ
+
+<a name='M-modelLINQ-BindingExtension-BindCount``2-System-Linq-Expressions-Expression,System-String-'></a>
+### BindCount\`\`2(bindToProperty,countParameter) `method`
+
+##### Summary
+
+Binds the count of a list of items
+
+##### Returns
+
+The binding member assignment
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| bindToProperty | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The property name of the model to bind to |
+| countParameter | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The list parameter to generate the count |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TBindingTo | The type of the model to bind to |
+| TCountSource | The type of the list for the count |
 
 <a name='M-modelLINQ-BindingExtension-BindHasAny``2-System-Linq-Expressions-Expression,System-String,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String[]-'></a>
 ### BindHasAny\`\`2(param,bindPropname,anyPredicate,propNames) `method`
@@ -819,6 +847,30 @@ A any method call expression
 | ---- | ----------- |
 | TAnySource | The any param source |
 
+<a name='M-modelLINQ-MethodExtension-Count``1-System-Linq-Expressions-Expression-'></a>
+### Count\`\`1(countParameter) `method`
+
+##### Summary
+
+Generates a count method call to get the count
+of a list of items
+
+##### Returns
+
+A method call expression of the count
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| countParameter | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The parameter source of the list |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TCountSource | The source of the count |
+
 <a name='M-modelLINQ-MethodExtension-GetAny'></a>
 ### GetAny() `method`
 
@@ -880,6 +932,35 @@ The where MethodInfo
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-modelLINQ-MethodExtension-SelectProperty``2-System-Linq-Expressions-Expression,System-Func{System-Linq-Expressions-Expression,System-Linq-Expressions-Expression},System-String,System-String,System-String,System-Boolean-'></a>
+### SelectProperty\`\`2(bindingParam,predicate,selectPropertyName,predicateSourceName,selectSourceName,asList) `method`
+
+##### Summary
+
+
+
+##### Returns
+
+A filitered list of TSelectResult
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| bindingParam | [System.Linq.Expressions.Expression](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.Expressions.Expression 'System.Linq.Expressions.Expression') | The binding param of the predicate |
+| predicate | [System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Func 'System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression}') | The predicate to filter the results on |
+| selectPropertyName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the property being selected off of TSelectSource |
+| predicateSourceName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The predicate source name override |
+| selectSourceName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The source name override |
+| asList | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | If we want to select as a list |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TSelectSource | The source of the list of items |
+| TSelectResult | The result of the list of items |
 
 <a name='M-modelLINQ-MethodExtension-SelectProperty``2-System-Linq-Expressions-Expression,System-String,System-String,System-Boolean-'></a>
 ### SelectProperty\`\`2(param,propertyName,sourceName,asList) `method`

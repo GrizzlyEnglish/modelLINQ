@@ -146,6 +146,14 @@ namespace modelLINQ
                     );
         }
 
+        public static MemberAssignment BindFilteredProperty<TBindingTo, TSelectSource, TSelectResult>(this Expression param, string bindingPropertyName, string propertyToBind, Func<Expression, Expression> predicateGenerator, bool asList)
+        {
+            return Expression.Bind(
+                    typeof(TBindingTo).GetProperty(bindingPropertyName),
+                    param.SelectProperty<TSelectSource, TSelectResult>(predicateGenerator, propertyToBind, asList: asList)
+                    );
+        }
+
         /// <summary>
         /// Binds a selected list to the binding property name on the TBindingTo from
         /// the TSelectSource as a TSelectResult

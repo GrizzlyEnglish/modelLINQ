@@ -100,7 +100,7 @@ namespace modelLINQ
             return Expression.Bind(typeof(TSelectResult).GetProperty(bindPropname), prop);
         }
 
-            
+
         /// <summary>
         /// Bind a has any function on a parameter
         /// </summary>
@@ -114,7 +114,7 @@ namespace modelLINQ
         /// <returns>
         /// A has any memberassignment
         /// </returns>
-        public static MemberAssignment BindHasAny<TSelectResult, TAnySource>(this Expression param, string bindPropname, Func<Expression,Expression> anyPredicate, params string[] propNames)
+        public static MemberAssignment BindHasAny<TSelectResult, TAnySource>(this Expression param, string bindPropname, Func<Expression, Expression> anyPredicate, params string[] propNames)
         {
             Expression prop = param;
             foreach (string name in propNames)
@@ -130,6 +130,24 @@ namespace modelLINQ
             }
 
             return Expression.Bind(bindingProperty, prop.Any<TAnySource>(anyPredicate));
+        }
+
+        /// <summary>
+        /// Binds the count of a list of items
+        /// </summary>
+        /// <typeparam name="TBindingTo">The type of the model to bind to</typeparam>
+        /// <typeparam name="TCountSource">The type of the list for the count</typeparam>
+        /// <param name="bindToProperty">The property name of the model to bind to</param>
+        /// <param name="countParameter">The list parameter to generate the count</param>
+        /// <returns>
+        /// The binding member assignment
+        /// </returns>
+        public static MemberAssignment BindCount<TBindingTo, TCountSource>(this Expression countParameter, string bindToProperty)
+        {
+            return Expression.Bind(
+                typeof(TBindingTo).GetProperty(bindToProperty), 
+                MethodExtension.Count<TCountSource>(countParameter)
+            );
         }
     }
 }

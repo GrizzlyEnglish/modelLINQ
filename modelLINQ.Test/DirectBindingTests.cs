@@ -167,5 +167,11 @@ namespace modelLINQ.Test
 
             Assert.AreEqual(objA.Id, generatedModel.Id);
         }
+
+        [TestMethod]
+        public void DirectCountTest()
+        {
+
+        }
     }
 }

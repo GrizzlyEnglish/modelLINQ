@@ -87,6 +87,24 @@ namespace modelLINQ
             return null;
         }
 
+        /// <summary>
+        /// Generates a count method call to get the count
+        /// of a list of items
+        /// </summary>
+        /// <typeparam name="TCountSource">The source of the count</typeparam>
+        /// <param name="countParameter">The parameter source of the list</param>
+        /// <returns>
+        /// A method call expression of the count
+        /// </returns>
+        public static MethodCallExpression Count<TCountSource>(this Expression countParameter)
+        {
+            return Expression.Call(
+                typeof(Enumerable),
+                "Count",
+                new Type[] { typeof(TCountSource) },
+                countParameter
+            );
+        }
 
         /// <summary>
         /// Generates a where predicate in order to filter a list
@@ -155,6 +173,25 @@ namespace modelLINQ
         {
             return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
                 .Select<TSelectSource, TSelectResult>(assigments, selectSourceName, asList);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <typeparam name="TSelectSource">The source of the list of items</typeparam>
+        /// <typeparam name="TSelectResult">The result of the list of items</typeparam>
+        /// <param name="bindingParam">The binding param of the predicate</param>
+        /// <param name="predicate">The predicate to filter the results on</param>
+        /// <param name="selectPropertyName">The name of the property being selected off of TSelectSource</param>
+        /// <param name="predicateSourceName">The predicate source name override</param>
+        /// <param name="selectSourceName">The source name override</param>
+        /// <param name="asList">If we want to select as a list</param>
+        /// <returns>
+        /// A filitered list of TSelectResult
+        /// </returns>
+        public static MethodCallExpression SelectProperty<TSelectSource, TSelectResult>(this Expression bindingParam, Func<Expression, Expression> predicate, string selectPropertyName, string predicateSourceName = "whereSource", string selectSourceName = "listSource", bool asList = false)
+        {
+            return WherePredictate<TSelectSource>(bindingParam, predicate, predicateSourceName)
+                .SelectProperty<TSelectSource, TSelectResult>(selectPropertyName, selectSourceName, asList);
         }
 
         /// <summary>
